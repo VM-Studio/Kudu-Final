@@ -1,10 +1,7 @@
 "use client";
 
-import { BRAND } from "@/lib/brand";
-import { MessageCircle } from "lucide-react";
-
 export default function WhatsAppFloat() {
-  const wa = BRAND.contact.phone.replace(/\D/g, "");
+  const wa = "5491159278803"; // sin '+'
 
   return (
     <a
@@ -12,10 +9,16 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noreferrer"
       aria-label="WhatsApp"
-      className="fixed bottom-5 right-5 z-[70] inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl transition hover:scale-105"
-      style={{ boxShadow: "0 12px 30px rgba(37, 211, 102, .35)" }}
+      className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[70] inline-flex h-20 w-20 items-center justify-center cursor-pointer rounded-full transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#25D366]/40"
+      style={{ WebkitTapHighlightColor: "transparent" }}
     >
-      <MessageCircle size={26} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/wpp.png"
+        alt="WhatsApp"
+        className="h-full w-full object-contain select-none pointer-events-none"
+        draggable={false}
+      />
       <span className="sr-only">Abrir WhatsApp</span>
     </a>
   );
