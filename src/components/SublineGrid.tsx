@@ -10,9 +10,22 @@ type Props = {
   subtitle?: string;  // opcional
 };
 
+// Tipo mínimo para los ítems que necesita ProductCard
+type Item = {
+  id: string;
+  name: string;
+  short?: string;
+  image: string;
+  specs?: any;
+  badges?: string[];
+};
+
 export default function SublineGrid({ lineSlug, subSlug, title, subtitle }: Props) {
   const key = `${lineSlug}/${subSlug}`;
-  const items = PRODUCTS[key] || [];
+
+  // Fix TS: indexación dinámica tipada
+  const dict = PRODUCTS as unknown as Record<string, Item[]>;
+  const items: Item[] = dict[key] ?? [];
 
   return (
     <section className="mx-auto max-w-6xl px-5 py-16">
@@ -29,7 +42,7 @@ export default function SublineGrid({ lineSlug, subSlug, title, subtitle }: Prop
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((p) => (
+          {items.map((p: Item) => (
             <ProductCard
               key={p.id}
               id={p.id}

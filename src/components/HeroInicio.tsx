@@ -100,7 +100,7 @@ export default function HeroInicio() {
                       />
                     ) : (
                       <video
-                        ref={(el) => (videoRefs.current[i] = el)}
+                        ref={(el) => { videoRefs.current[i] = el; }}
                         className="absolute inset-0 w-full h-full object-cover object-left rounded-2xl"
                         muted
                         playsInline
