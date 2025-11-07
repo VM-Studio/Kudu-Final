@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import emailjs from '@emailjs/browser';
 import { Montserrat_Alternates } from 'next/font/google';
 import { PRODUCTS, type Product } from '@/components/data/products';
 
@@ -17,7 +16,7 @@ export default function ContactoPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // ===== NUEVO: interacción de productos =====
+  // ===== Interacción de productos =====
   const [wantProduct, setWantProduct] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const CATEGORIES = useMemo(
@@ -31,7 +30,7 @@ export default function ContactoPage() {
     [activeCat]
   );
 
-  // ===== NUEVO: feedback "Agregado con éxito!" =====
+  // ===== feedback "Agregado con éxito!" =====
   const [addedOk, setAddedOk] = useState(false);
 
   function appendToMessage(p: Product) {
@@ -41,7 +40,6 @@ export default function ContactoPage() {
     el.value = (el.value || '') + text;
     el.dispatchEvent(new Event('input', { bubbles: true }));
 
-    // feedback visual
     setAddedOk(true);
     setTimeout(() => setAddedOk(false), 1400);
   }
@@ -50,17 +48,18 @@ export default function ContactoPage() {
     e.preventDefault();
     setError(null);
 
-    const form = e.currentTarget;
+    const form = e.currentTarget as HTMLFormElement;
 
-    // Honeypot anti-spam (campo oculto)
+    // Honeypot anti-spam
     const hp = (form.elements.namedItem('website') as HTMLInputElement).value;
     if (hp) return;
 
-    const nombre = (form.elements.namedItem('nombre') as HTMLInputElement).value.trim();
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    const nombre   = (form.elements.namedItem('nombre') as HTMLInputElement).value.trim();
+    const email    = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
     const telefono = (form.elements.namedItem('telefono') as HTMLInputElement).value.trim();
-    const asunto = (form.elements.namedItem('asunto') as HTMLInputElement).value.trim();
-    const mensaje = (form.elements.namedItem('mensaje') as HTMLTextAreaElement).value.trim();
+    const asunto   = (form.elements.namedItem('asunto') as HTMLInputElement).value.trim();
+    const mensaje  = (form.elements.namedItem('mensaje') as HTMLTextAreaElement).value.trim();
+    const site     = (form.elements.namedItem('site') as HTMLInputElement)?.value || '';
 
     if (!nombre || !email || !mensaje) {
       setError('Completá nombre, email y tu consulta.');
@@ -69,25 +68,50 @@ export default function ContactoPage() {
 
     setLoading(true);
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
-      const publicKey  = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre,
+          email,
+          telefono,
+          asunto: asunto || 'Consulta',
+          mensaje,
+          site, // opcional: para distinguir origen (p. ej., kuduobras.com)
+        }),
+      });
 
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          title: asunto || 'Consulta',
-          name: nombre,
-          email: email,
-          message: `${mensaje}${telefono ? `\n\nTeléfono: ${telefono}` : ''}`,
-        },
-        { publicKey }
-      );
+      // Puede que el backend falle antes de responder JSON
+      let data: any = null;
+      try {
+        data = await res.json();
+      } catch {
+        // ignore
+      }
 
+      if (!res.ok || !data?.ok) {
+        const msg: string =
+          data?.error ||
+          (res.status === 400 ? 'Datos inválidos.' :
+           res.status === 500 ? 'Error del servidor.' :
+           'No se pudo enviar el formulario.');
+
+        // Detecta específicamente el caso de variables de entorno faltantes
+        if (typeof msg === 'string' && /faltan variables de entorno/i.test(msg)) {
+          setError(
+            'No se pudo enviar: faltan variables de entorno de SMTP en el servidor. ' +
+            'Asegurate de configurar SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, MAIL_FROM y MAIL_TO.'
+          );
+        } else {
+          setError(msg);
+        }
+        return; // no continuamos
+      }
+
+      // OK -> redirigimos a la página de agradecimiento
       router.push('/contacto/agradecimiento');
     } catch (err) {
-      console.error('EmailJS error', err);
+      console.error('Contact form error', err);
       setError('No se pudo enviar el formulario. Probá nuevamente.');
     } finally {
       setLoading(false);
@@ -138,6 +162,9 @@ export default function ContactoPage() {
               autoComplete="off"
             />
 
+            {/* Campo oculto para identificar el sitio/origen (opcional) */}
+            <input type="hidden" name="site" value="kuduobras.com" />
+
             {/* Layout 2 columnas en desktop */}
             <div className="grid gap-6 md:grid-cols-2">
               <Field
@@ -169,7 +196,7 @@ export default function ContactoPage() {
               />
             </div>
 
-            {/* ===== selector de producto opcional ===== */}
+            {/* Selector de producto opcional */}
             <div className="flex items-center gap-3">
               <input
                 id="wantProduct"
@@ -231,7 +258,7 @@ export default function ContactoPage() {
             </div>
           </form>
 
-          {/* ===== Modal de selección ===== */}
+          {/* Modal de selección */}
           {showPicker && (
             <div
               className="fixed inset-0 z-[80] flex items-center justify-center bg-black/40 p-4"
@@ -251,7 +278,7 @@ export default function ContactoPage() {
                   </button>
                 </div>
 
-                {/* NUEVO: badge de agregado */}
+                {/* Badge de agregado */}
                 {addedOk && (
                   <div className="absolute right-4 top-4 rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700 ring-1 ring-emerald-200 shadow-sm">
                     Agregado con éxito!
@@ -280,7 +307,7 @@ export default function ContactoPage() {
                   })}
                 </div>
 
-                {/* Lista de productos de la categoría */}
+                {/* Lista de productos */}
                 <div className="max-h-[60vh] overflow-y-auto p-4 pt-0">
                   <ul className="divide-y">
                     {listByCat.map((p) => (
