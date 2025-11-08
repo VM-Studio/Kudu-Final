@@ -105,10 +105,11 @@ export default function PerfilPage() {
 
         {/* PDFs */}
         <section className="mb-10">
-          <div className="mb-4 flex items-center justify-between">
+          {/* contenedor: mismos tamaños + separación */}
+          <div className="mb-4 flex flex-col md:flex-row items-stretch justify-between gap-4 md:gap-6">
             {/* Banner 1 */}
-            <div className="mx-auto mt-8 w-full max-w-5xl">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 rounded-3xl border border-zinc-200 bg-white px-5 py-4 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)]">
+            <div className="w-full md:w-1/2">
+              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-3xl border border-zinc-200 bg-white px-5 py-4 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[120px]">
                 <div className="flex items-center gap-3">
                   <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
                     Vigente
@@ -137,8 +138,8 @@ export default function PerfilPage() {
             </div>
 
             {/* Banner 2 */}
-            <div className="mx-auto mt-8 w-full max-w-5xl">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 rounded-3xl border border-zinc-200 bg-white px-5 py-4 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)]">
+            <div className="w-full md:w-1/2">
+              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-3xl border border-zinc-200 bg-white px-5 py-4 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[120px]">
                 <div className="flex items-center gap-3">
                   <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
                     Vigente
@@ -174,7 +175,7 @@ export default function PerfilPage() {
             <li>
               <button
                 onClick={() => setTab("posts")}
-                className={`relative py-3 text-base font-semibold font-[Montserrat_Alternates] ${
+                className={`relative py-3 text-2xl font-semibold font-[Montserrat_Alternates] ${
                   tab === "posts" ? "text-[#647a8b]" : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -185,7 +186,7 @@ export default function PerfilPage() {
             <li>
               <button
                 onClick={() => setTab("videos")}
-                className={`relative py-3 text-base font-semibold font-[Montserrat_Alternates] ${
+                className={`relative py-3 text-2xl font-semibold font-[Montserrat_Alternates] ${
                   tab === "videos" ? "text-[#647a8b]" : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -219,7 +220,7 @@ export default function PerfilPage() {
                   key={candidates.join("|")}
                   onClick={() => setModal({ open: true, type: "video", src: candidates[0] })}
                   className="group relative block overflow-hidden rounded-3xl ring-1 ring-black/5 bg-black
-                             aspect-[9/16] md:min-h-[520px] lg:min-h-[600px] shadow-[0_12px_30px_-14px_rgba(0,0,0,0.25)]"
+                             aspect-[9/16] md:min-h=[520px] lg:min-h=[600px] shadow-[0_12px_30px_-14px_rgba(0,0,0,0.25)]"
                   title={`Reproducir video ${i + 1}`}
                 >
                   <video

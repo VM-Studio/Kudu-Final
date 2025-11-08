@@ -52,11 +52,11 @@ export default function LinesCarousel() {
                          font-extrabold leading-none select-none text-slate-200/60
                          text-[12vw] md:text-[7.5vw]"
             >
-              líneas
+              Líneas
             </span>
             <h2
               className="absolute left-1/2 top-1/2 -translate-x-1/2
-                         -translate-y-[58%] md:-translate-y-[56%]
+                         -translate-y-[48%] md:-translate-y-[46%]
                          text-center tracking-tight font-extrabold text-slate-900 z-10
                          whitespace-nowrap
                          text-3xl md:text-5xl lg:text-6xl"
@@ -65,7 +65,7 @@ export default function LinesCarousel() {
             </h2>
           </div>
           <div
-            className="mt-4 h-[3px] w-28 mx-auto rounded-full"
+            className="mt-2 h-[3px] w-28 mx-auto rounded-full"
             style={{ backgroundColor: ACCENT }}
           />
         </div>

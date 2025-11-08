@@ -1,6 +1,6 @@
 export const BRAND = {
     name: "KUDU",
-    claim: "INSTINTO INNOVADOR",
+    claim: "REPRESENTANTE OFICIAL KUDU BS. AS.",
     colors: {
       primary: "#647A8B",
       ink: "#0F172A",
