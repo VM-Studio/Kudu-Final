@@ -21,7 +21,7 @@ export default function PerfilPage() {
   const [modal, setModal] = useState<ModalState>({ open: false });
 
   /* ============= POSTS (feed cuadrado) ============= */
-  const TOTAL_POSTS = 12;
+  const TOTAL_POSTS = 15;
   const FALLBACK_POSTS = Array.from({ length: TOTAL_POSTS }, (_, i) => `/feed/${i + 1}.jpg`);
   const [posts, setPosts] = useState<string[]>(FALLBACK_POSTS);
 
@@ -65,6 +65,15 @@ export default function PerfilPage() {
           "video-4.mp4",
           "video-5.mp4",
           "video-6.mp4",
+          "video-7.mp4",
+          
+          "video-9.mp4",
+          "video-10.mp4",
+          "video-11.mp4",
+          "video-12.mp4",
+          "video-13.mp4",
+          "video-14.mp4",
+          "video-15.mp4",
         ];
         setVideos(base.map(buildCandidates));
       });

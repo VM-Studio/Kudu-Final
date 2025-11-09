@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Montserrat_Alternates } from 'next/font/google';
 import { PRODUCTS, type Product } from '@/components/data/products';
 
@@ -33,12 +33,60 @@ export default function ContactoPage() {
   // ===== feedback "Agregado con éxito!" =====
   const [addedOk, setAddedOk] = useState(false);
 
-  function appendToMessage(p: Product) {
+  // ===== Lista de productos seleccionados para armar el prefijo automático =====
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+
+  // Construye y aplica el prefijo automático en el textarea cuando corresponde
+  function applyAutoMessage() {
     const el = document.getElementById('mensaje') as HTMLTextAreaElement | null;
     if (!el) return;
-    const text = `\n• Producto: ${p.name} (ID: ${p.id})`;
-    el.value = (el.value || '') + text;
+    if (!wantProduct || selectedProducts.length === 0) return;
+
+    const plural = selectedProducts.length > 1;
+
+    // primera línea
+    const firstLine =
+      `Hola! Me gustaría consultar sobre el${plural ? 's' : ''} ` +
+      `siguiente${plural ? 's' : ''} producto${plural ? 's' : ''}:`;
+
+    // lista en líneas separadas con viñetas
+    const namesBlock = selectedProducts
+      .map(p => `• ${p.name} (ID: ${p.id})`)
+      .join('\n');
+
+    const headerBlock = `${firstLine}\n${namesBlock}`;
+
+    const hadAuto = el.dataset.autofill === '1';
+    const current = el.value || '';
+
+    // Si ya había un header auto (o empieza con nuestro encabezado estándar),
+    // reemplazamos el bloque de encabezado y conservamos lo que el usuario haya escrito
+    if (hadAuto || current.startsWith('Hola! Me gustaría consultar')) {
+      const parts = current.split('\n\n'); // [header, rest...]
+      const rest = parts.length > 1 ? parts.slice(1).join('\n\n') : '';
+      el.value = rest ? `${headerBlock}\n\n${rest}` : headerBlock;
+    } else if (current.trim().length === 0) {
+      el.value = headerBlock;
+    } else {
+      el.value = `${headerBlock}\n\n${current}`;
+    }
+
+    el.dataset.autofill = '1';
     el.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  // Cuando cambia la selección o el toggle, actualizamos el mensaje
+  useEffect(() => {
+    applyAutoMessage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedProducts, wantProduct]);
+
+  function appendToMessage(p: Product) {
+    // Evitar duplicados
+    setSelectedProducts(prev => {
+      if (prev.some(x => x.id === p.id)) return prev;
+      return [...prev, p];
+    });
 
     setAddedOk(true);
     setTimeout(() => setAddedOk(false), 1400);
@@ -199,15 +247,7 @@ export default function ContactoPage() {
                 type="checkbox"
                 checked={wantProduct}
                 onChange={(e) => setWantProduct(e.target.checked)}
-                className="
-                  h-5 w-5 appearance-none rounded-md border border-slate-300 bg-white
-                  grid place-content-center
-                  focus:outline-none focus:ring-2 focus:ring-[#647a8b]/30
-                  checked:border-[#647a8b]
-                  checked:bg-white
-                  checked:bg-[length:14px_14px] checked:bg-no-repeat checked:bg-center
-                  checked:[background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22 fill=%22none%22 stroke=%22%23647A8B%22 stroke-width=%223%22><path d=%22M5 10l3 3 7-7%22/></svg>')]
-                "
+                className="h-5 w-5 rounded-md border border-slate-300 bg-white accent-[#647a8b] cursor-pointer"
               />
               <label htmlFor="wantProduct" className="text-slate-800">
                 ¿Desea consultar sobre algún producto en particular?
