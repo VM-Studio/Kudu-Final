@@ -1,5 +1,6 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -15,11 +16,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <body className="min-h-dvh bg-white text-[#111] antialiased">
-        {/* Loader global: aparece en el primer render y en cada cambio de ruta */}
-        <LoadingOverlay />
+        {/* Loader global: siempre dentro de Suspense */}
+        <Suspense fallback={null}>
+          <LoadingOverlay />
+        </Suspense>
 
         <Navigation />
-        {children}
+
+        {/* Cualquier página que use useSearchParams/usePathname quedará segura */}
+        <Suspense fallback={null}>
+          {children}
+        </Suspense>
+
         <Footer />
         <WhatsAppFloat />
       </body>
