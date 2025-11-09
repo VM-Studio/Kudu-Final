@@ -66,19 +66,23 @@ export default function ContactoPage() {
       return;
     }
 
+    // 🔁 Mapeamos a lo que espera la API: name, email, phone, message
+    const payload = {
+      name: nombre,
+      email,
+      phone: telefono,
+      // si hay "asunto", lo incluimos arriba del mensaje
+      message: asunto ? `Asunto: ${asunto}\n\n${mensaje}` : mensaje,
+      site, // opcional, por si querés ver origen en logs del server
+      // products: [] // si en el futuro querés mandar un array aparte
+    };
+
     setLoading(true);
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nombre,
-          email,
-          telefono,
-          asunto: asunto || 'Consulta',
-          mensaje,
-          site, // opcional: para distinguir origen (p. ej., kuduobras.com)
-        }),
+        body: JSON.stringify(payload),
       });
 
       // Puede que el backend falle antes de responder JSON
@@ -93,18 +97,10 @@ export default function ContactoPage() {
         const msg: string =
           data?.error ||
           (res.status === 400 ? 'Datos inválidos.' :
+           res.status === 429 ? 'Demasiadas solicitudes, intentá en un minuto.' :
            res.status === 500 ? 'Error del servidor.' :
            'No se pudo enviar el formulario.');
-
-        // Detecta específicamente el caso de variables de entorno faltantes
-        if (typeof msg === 'string' && /faltan variables de entorno/i.test(msg)) {
-          setError(
-            'No se pudo enviar: faltan variables de entorno de SMTP en el servidor. ' +
-            'Asegurate de configurar SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, MAIL_FROM y MAIL_TO.'
-          );
-        } else {
-          setError(msg);
-        }
+        setError(msg);
         return; // no continuamos
       }
 
