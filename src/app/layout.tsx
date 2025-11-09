@@ -10,6 +10,13 @@ import LoadingOverlay from "@/components/LoadingOverlay";
 export const metadata: Metadata = {
   title: "KUDU — Catálogo 2025",
   description: "Purificadores, Campanas, Extractores, Hornos y Anafes KUDU.",
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon.png", type: "image/png" }, // fallback
+    ],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
