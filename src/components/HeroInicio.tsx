@@ -69,10 +69,10 @@ export default function HeroInicio() {
   }, [idx, next]);
 
   return (
-    <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-      <div className="flex flex-col md:flex-row md:gap-0">
+  <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] px-0 sm:px-0 md:px-0">
+  <div className="flex flex-col md:flex-row md:gap-0 w-full">
         {/* === CARRUSEL (75% del ancho, pegado a la izquierda) === */}
-        <div className="w-screen md:w-[75vw] shrink-0">
+  <div className="w-full md:w-[75vw] shrink-0">
           <div className="relative h-[42vh] sm:h-[52vh] md:h-[60vh] lg:h-[66vh] overflow-hidden rounded-2xl md:rounded-r-2xl">
             {/* Slides */}
             <div className="absolute inset-0">
@@ -165,7 +165,7 @@ export default function HeroInicio() {
         </div>
 
         {/* === CTA (25% del ancho) === */}
-        <aside className="md:w-[25vw] flex items-center justify-center px-6 md:px-8">
+  <aside className="w-full md:w-[25vw] flex items-center justify-center px-4 sm:px-6 md:px-8">
           <div className="w-full h-full min-h-[200px] rounded-2xl bg-white/70 backdrop-blur-sm border border-white/40 p-6 md:p-8 flex flex-col items-center md:items-start justify-center text-center md:text-left">
 
             <p className="text-zinc-600 mb-5 md:mb-6">

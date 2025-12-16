@@ -42,11 +42,11 @@ export default function LinesCarousel() {
 
   return (
     <section id="lineas" className="relative w-full bg-white">
-      <div className="relative mx-auto max-w-[1400px] px-0 md:px-6 py-14 md:py-16">
+      <div className="relative mx-auto max-w-[1400px] px-2 sm:px-4 md:px-6 py-14 md:py-16 w-full">
 
         {/* ===== TÍTULO “Nuestras líneas” (ghost + título centrado) ===== */}
         <div className="relative mb-10 md:mb-12">
-          <div className="relative h-[110px] md:h-[140px] lg:h-[160px]">
+          <div className="relative h-[110px] md:h-[140px] lg:h-40">
             <span
               className="pointer-events-none absolute inset-0 grid place-items-center
                          font-extrabold leading-none select-none text-slate-200/60
@@ -80,7 +80,7 @@ export default function LinesCarousel() {
               hidden md:flex
               md:h-[300px]
               md:w-[min(26vw,340px)]
-              left-[-32px]
+              -left-8
               flex-col items-center justify-center gap-3
               rounded-r-[99px]
               ring-1
@@ -137,7 +137,7 @@ export default function LinesCarousel() {
               hidden md:flex
               md:h-[300px]
               md:w-[min(26vw,340px)]
-              right-[-32px]
+              -right-8
               flex-col items-center justify-center gap-3
               rounded-l-[99px]
               ring-1
@@ -265,7 +265,7 @@ export default function LinesCarousel() {
       </div>
 
       <div
-        className="h-[2px] w-full"
+  className="h-0.5 w-full"
         style={{ background: "linear-gradient(90deg, transparent, rgba(97,119,137,.35), transparent)" }}
       />
     </section>

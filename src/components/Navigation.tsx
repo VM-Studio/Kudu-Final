@@ -42,13 +42,13 @@ export default function Navigation() {
           "sticky top-0 z-50 w-full -mb-2 md:-mb-3 transition-all",
           scrolled
             // sombra un poco más marcada al scrollear + blur
-            ? "bg-white/90 supports-[backdrop-filter]:bg-white/75 backdrop-blur " +
+            ? "bg-white/90 supports-backdrop-filter:bg-white/75 backdrop-blur " +
               "shadow-[0_14px_42px_-30px_rgba(2,6,23,.35)]"
             // sombra finita y elegante en reposo
             : "bg-white shadow-[0_10px_32px_-28px_rgba(2,6,23,.24)]"
         ].join(" ")}
       >
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+  <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-3 sm:px-5 w-full">
           {/* Logo */}
           <Link href="/" className="inline-flex items-center" aria-label="Inicio">
             <Image
@@ -93,9 +93,9 @@ export default function Navigation() {
             aria-label="Abrir menú"
           >
             <div className="space-y-[5px]">
-              <span className="block h-[2px] w-5 bg-[#222]" />
-              <span className="block h-[2px] w-5 bg-[#222]" />
-              <span className="block h-[2px] w-5 bg-[#222]" />
+              <span className="block h-0.5 w-5 bg-[#222]" />
+              <span className="block h-0.5 w-5 bg-[#222]" />
+              <span className="block h-0.5 w-5 bg-[#222]" />
             </div>
           </button>
         </div>
@@ -103,9 +103,9 @@ export default function Navigation() {
 
       {/* Mobile drawer */}
       {open && (
-        <div className="fixed inset-0 z-[60]">
+  <div className="fixed inset-0 z-60">
           <div className="absolute inset-0 bg-black/30" onClick={() => setOpen(false)} />
-          <aside className="absolute right-0 top-0 h-full w-[85%] max-w-[340px] border-l border-gray-200 bg-white shadow-xl">
+          <aside className="absolute right-0 top-0 h-full w-[90vw] max-w-[340px] border-l border-gray-200 bg-white shadow-xl overflow-y-auto">
             <div className="flex items-center justify-between p-5">
               <div className="inline-flex items-center">
                 <Image src="/navbar.png" alt="KUDU" width={130} height={30} className="h-7 w-auto" />

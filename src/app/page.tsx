@@ -6,6 +6,7 @@ import HeroInicio from "@/components/HeroInicio";
 import { BRAND } from "@/lib/brand";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import { Sora } from "next/font/google";
+import Link from "next/link";
 
 // Fuente Sora (ligera/moderna)
 const sora = Sora({
@@ -23,7 +24,7 @@ export default function Home() {
         style={{ backgroundImage: "url(/background.png)" }}
       >
         {/* velo suave a la izquierda para legibilidad (no tapa) */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent" />
+  <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-white/80 via-white/50 to-transparent" />
 
         {/* contenido */}
         <div className="relative mx-auto flex h-[82vh] md:h-[90vh] max-w-6xl items-center px-5 pt-10 md:pt-14">
@@ -43,24 +44,24 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
+              <Link
                 href="/catalogo"
                 className="inline-flex items-center justify-center rounded-2xl bg-[#647A8B] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#586c7c]"
               >
                 Ver catálogo
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/contacto"
                 className="inline-flex items-center justify-center rounded-2xl border border-[#647A8B] bg-white px-6 py-3.5 text-sm font-semibold text-[#647A8B] transition hover:bg-[#647A8B]/10"
               >
                 Contacto
-              </a>
+              </Link>
             </div>
           </div>
         </div>
 
         {/* degradado SOLO hacia abajo (no hacia arriba) */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[90px] bg-gradient-to-b from-transparent to-white" />
+  <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[90px] bg-linear-to-b from-transparent to-white" />
       </section>
 
       {/* secciones */}

@@ -58,7 +58,6 @@ export default function LoadingOverlay() {
       if (intervalRef.current) clearInterval(intervalRef.current);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // En cada cambio de ruta o query → volver a mostrar
@@ -71,7 +70,7 @@ export default function LoadingOverlay() {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center p-6 transition-opacity duration-500"
+  className="fixed inset-0 z-9999 flex flex-col items-center justify-center p-6 transition-opacity duration-500"
       style={{ backgroundColor: "#617783", opacity: progress >= 100 ? 0 : 1 }}
       role="status"
       aria-label="Cargando…"
@@ -92,7 +91,7 @@ export default function LoadingOverlay() {
       <div className="w-full max-w-xl">
         <div className="h-2.5 rounded-full bg-white/20">
           <div
-            className="h-2.5 rounded-full bg-gradient-to-r from-[#2B6CF6] to-[#61A0FF] transition-[width] duration-200"
+            className="h-2.5 rounded-full bg-linear-to-r from-[#2B6CF6] to-[#61A0FF] transition-[width] duration-200"
             style={{ width: `${Math.floor(progress)}%` }}
           />
         </div>

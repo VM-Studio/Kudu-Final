@@ -7,8 +7,8 @@ export default function Footer() {
   return (
     <footer className="border-t border-gray-200 bg-white">
       {/* contenedor más bajo */}
-      <div className="mx-auto max-w-6xl px-5 py-6 md:py-8">
-        <div className="grid gap-6 md:grid-cols-3">
+  <div className="mx-auto max-w-6xl px-4 sm:px-5 py-6 md:py-8 w-full">
+  <div className="grid gap-6 md:grid-cols-3 w-full">
           {/* Marca */}
           <div className="leading-tight">
             <div className="text-lg font-semibold text-[#111]">{BRAND.name}</div>

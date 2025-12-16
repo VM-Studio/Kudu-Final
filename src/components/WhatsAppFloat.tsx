@@ -9,7 +9,7 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noreferrer"
       aria-label="WhatsApp"
-      className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[70] inline-flex h-20 w-20 items-center justify-center cursor-pointer rounded-full transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#25D366]/40"
+  className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-70 inline-flex h-20 w-20 items-center justify-center cursor-pointer rounded-full transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#25D366]/40"
       style={{ WebkitTapHighlightColor: "transparent" }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -22,9 +22,9 @@ export default function ProductCard({
   badges = [],
 }: ProductCardProps) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
+  <article className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md w-full">
       {/* Imagen */}
-      <div className="relative h-48 w-full overflow-hidden">
+  <div className="relative h-40 sm:h-48 w-full overflow-hidden">
         <Image
           src={image}
           alt={name}
@@ -35,7 +35,7 @@ export default function ProductCard({
       </div>
 
       {/* Contenido */}
-      <div className="p-5">
+  <div className="p-4 sm:p-5">
         {badges.length > 0 && (
           <div className="mb-2 flex flex-wrap gap-2">
             {badges.map((b, i) => (

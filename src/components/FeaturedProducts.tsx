@@ -42,7 +42,7 @@ export default function FeaturedProducts() {
   return (
     <section
       id="destacados"
-      className="mx-auto max-w-6xl px-6 pt-16 pb-12"
+      className="mx-auto max-w-6xl px-3 sm:px-6 pt-16 pb-12 w-full"
       aria-labelledby="destacados-title"
     >
       <div className="relative mb-12">
@@ -132,7 +132,7 @@ export default function FeaturedProducts() {
                 />
               </div>
 
-              <div className="ml-[200px] md:ml-[240px]">
+              <div className="ml-[200px] md:ml-60">
                 <h3 className="text-xl font-semibold text-[#111]">{safe(p.name)}</h3>
                 {p.short && (
                   <p className="mt-2 text-sm leading-6 text-[#374151]">{p.short}</p>

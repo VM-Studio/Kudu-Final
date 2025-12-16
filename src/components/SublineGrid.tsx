@@ -16,7 +16,7 @@ type Item = {
   name: string;
   short?: string;
   image: string;
-  specs?: any;
+  specs?: { k: string; v: string }[];
   badges?: string[];
 };
 
@@ -28,7 +28,7 @@ export default function SublineGrid({ lineSlug, subSlug, title, subtitle }: Prop
   const items: Item[] = dict[key] ?? [];
 
   return (
-    <section className="mx-auto max-w-6xl px-5 py-16">
+  <section className="mx-auto max-w-6xl px-3 sm:px-5 py-10 sm:py-16 w-full">
       <div className="mb-6">
         <h2 className="text-2xl font-semibold text-[#111]">
           {title ?? `Modelos · ${capitalize(subSlug)}`}
@@ -41,7 +41,7 @@ export default function SublineGrid({ lineSlug, subSlug, title, subtitle }: Prop
           No hay productos cargados todavía para esta sublínea.
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <div className="grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((p: Item) => (
             <ProductCard
               key={p.id}
