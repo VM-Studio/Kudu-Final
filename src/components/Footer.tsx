@@ -1,5 +1,6 @@
 // src/components/Footer.tsx
 import { BRAND } from "@/lib/brand";
+import Image from "next/image";
 
 export default function Footer() {
   const waNumber = BRAND.contact.phone.replace(/\D/g, "");
@@ -11,14 +12,16 @@ export default function Footer() {
   <div className="grid gap-6 md:grid-cols-3 w-full">
           {/* Marca */}
           <div className="leading-tight">
-            <div className="text-lg font-semibold text-[#111]">{BRAND.name}</div>
+            <Image
+              src="/navbar.png"
+              alt={BRAND.name}
+              width={120}
+              height={40}
+              className="mb-2"
+            />
             <div className="mt-0.5 text-sm text-[#647A8B] font-medium tracking-wide">
               {BRAND.claim}
             </div>
-            <p className="mt-2 text-xs text-[#555] max-w-xs leading-5">
-              Diseñamos y desarrollamos productos de ventilación y cocción que
-              combinan innovación, potencia y estética contemporánea.
-            </p>
           </div>
 
           {/* Contacto */}

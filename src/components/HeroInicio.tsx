@@ -37,14 +37,10 @@ export default function HeroInicio() {
   const next = useCallback(() => go(idx + 1), [go, idx]);
   const prev = useCallback(() => go(idx - 1), [go, idx]);
 
+  // Solo para reproducir videos automáticamente, sin avanzar slides
   useEffect(() => {
     const slide = SLIDES[idx];
-    let cleanup: VoidFunction | undefined;
-
-    if (slide.type === 'image') {
-      const t = setTimeout(next, 5000);
-      cleanup = () => clearTimeout(t);
-    } else {
+    if (slide.type === 'video') {
       const v = videoRefs.current[idx];
       if (v) {
         const play = async () => {
@@ -53,20 +49,9 @@ export default function HeroInicio() {
           } catch {}
         };
         play();
-        const onEnded = () => next();
-        v.addEventListener('ended', onEnded);
-        const fallback = setTimeout(next, (v.duration || 30) * 1000 + 500);
-        cleanup = () => {
-          v.removeEventListener('ended', onEnded);
-          clearTimeout(fallback);
-        };
-      } else {
-        const t = setTimeout(next, 12000);
-        cleanup = () => clearTimeout(t);
       }
     }
-    return () => cleanup && cleanup();
-  }, [idx, next]);
+  }, [idx]);
 
   return (
   <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] px-0 sm:px-0 md:px-0">
@@ -173,7 +158,7 @@ export default function HeroInicio() {
             </p>
             <Link
               href="/catalogo"
-              className="inline-flex items-center justify-center px-5 py-3 font-bold rounded-xl bg-[#547184] text-white
+              className="inline-flex items-center justify-center px-5 py-3 font-bold rounded-none bg-[#547184] text-white
                          hover:bg-zinc-800 active:scale-[.98] transition shadow-lg shadow-zinc-900/10"
             >
               Ver catálogo

@@ -960,7 +960,7 @@ export const PRODUCTS: Product[] = [
     category: "Hornos",
     line: "Eléctrico / Empotrable",
     barcode: "—",
-    short: "Horno Empotrable Eléctrico 78L Convección Negro. 78 litros, con convección, display LED premium, doble vidrio y clase energética A.",
+    short: "Horno Empotrable Eléctrico 78L con convección y display LED.",
     image: "/productos/hornos/bip.png",
     images: [
         "/productos/hornos/horno1.png",

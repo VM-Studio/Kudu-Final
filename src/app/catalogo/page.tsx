@@ -90,13 +90,8 @@ export default function CatalogoPage() {
     }));
   }, []);
 
-  const [allProducts, setAllProducts] = useState<UiProduct[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setAllProducts(mappedAll);
-    setLoading(false);
-  }, [mappedAll]);
+  const [allProducts, setAllProducts] = useState<UiProduct[]>(mappedAll);
+  const [loading, setLoading] = useState(false);
 
   /* ===== HERO slides ===== */
   const HERO_SLIDES = useMemo(() => {
@@ -109,31 +104,8 @@ export default function CatalogoPage() {
   }, [mappedAll]);
 
   const [heroIdx, setHeroIdx] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setHeroIdx((i) => (i + 1) % HERO_SLIDES.length), 3500);
-    return () => clearInterval(id);
-  }, [HERO_SLIDES.length]);
 
-  /* ===== Populares (8) ===== */
-  // SOLO campanas para el carrusel
-  const campanas8 = useMemo(() => {
-    return allProducts.filter(p => p.category === 'Campanas').slice(0, 8);
-  }, [allProducts]);
-
-  /* ===== Destacados (8 -> 4 por vista) ===== */
-  const featured8 = useMemo(() => {
-    const flagged = allProducts.filter(p => p.featured);
-    return (flagged.length >= 8 ? flagged : allProducts).slice(0, 8);
-  }, [allProducts]);
-  const [featPage, setFeatPage] = useState(0);
-  const FEAT_PER_VIEW = 4;
-  const maxFeatPage = Math.max(0, Math.ceil(featured8.length / FEAT_PER_VIEW) - 1);
-  const paginatedFeatured = useMemo(() => {
-    const start = featPage * FEAT_PER_VIEW;
-    return featured8.slice(start, start + FEAT_PER_VIEW);
-  }, [featPage, featured8]);
-
-  /* ===== Filtro (sin “Todos”) ===== */
+  /* ===== Filtro (sin "Todos") ===== */
   const [filter, setFilter] = useState<CategoryFilter>(CATEGORIES[0]);
   const products = useMemo(() => allProducts.filter(p => p.category === filter), [allProducts, filter]);
   const activeIndex = CATEGORIES.indexOf(filter);
@@ -170,19 +142,17 @@ export default function CatalogoPage() {
       <section
         className="
           relative w-full
-          bg-center bg-cover bg-no-repeat bg-fixed
+          bg-white
         "
-        style={{
-          backgroundImage: "url('/kudubackground.png')"
-        }}
       >
         {/* overlay opcional para contraste del texto */}
-        <div className="absolute inset-0 pointer-events-none bg-white/40"></div>
+        <div className="absolute inset-0 pointer-events-none"></div>
 
-        <div className="relative mx-auto max-w-7xl px-4 md:px-8" style={{ minHeight: '72vh' }}>
-          {/* IMAGEN DEL HERO (SIN TARJETA) */}
+        <div className="relative mx-auto max-w-7xl px-4 md:px-8" style={{ minHeight: '60vh' }}>
+          {/* IMAGEN DEL HERO (SIN TARJETA) - Oculta en móviles */}
           <div
             className="
+              hidden lg:block
               absolute inset-y-6 left-6 right-[48%]
               overflow-visible pointer-events-none
             "
@@ -195,7 +165,7 @@ export default function CatalogoPage() {
           />
           {/* sombra suelo */}
           <div
-            className="absolute left-10 right-[50%] bottom-8 h-10"
+            className="hidden lg:block absolute left-10 right-[50%] bottom-8 h-10"
             style={{
               background: 'radial-gradient(50% 100% at 50% 50%, rgba(0,0,0,.22), transparent 70%)',
               filter: 'blur(6px)'
@@ -203,21 +173,17 @@ export default function CatalogoPage() {
           />
 
           {/* TEXTO A LA DERECHA */}
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center py-16">
-            <div className="lg:col-start-2 max-w-xl lg:pl-8">
-              {/* quitamos 'badge' para evitar error TS */}
-              <p className="text-sm font-semibold tracking-wide text-slate-600">
-                La mejor Calidad
-              </p>
-              <h1 className="mt-2 text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900">
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center py-12 lg:py-16">
+            <div className="lg:col-start-2 max-w-xl lg:pl-8 text-center lg:text-left">
+              <h1 className="mt-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900">
                 {HERO_SLIDES[heroIdx]?.title ?? 'New Car Parts'}
               </h1>
-              <p className="mt-5 text-lg text-slate-700">
+              <p className="mt-4 lg:mt-5 text-base sm:text-lg text-slate-700">
                 {HERO_SLIDES[heroIdx]?.desc ?? 'Descripción breve del producto.'}
               </p>
               <Link
                 href={buildProductHref(HERO_SLIDES[heroIdx].product)}
-                className="mt-8 inline-flex items-center justify-center rounded-xl px-6 py-3 text-white font-semibold shadow-sm"
+                className="mt-6 lg:mt-8 inline-flex items-center justify-center rounded-xl px-6 py-3 text-white font-semibold shadow-sm"
                 style={{ backgroundColor: PRIMARY }}
               >
                 Ver producto
@@ -227,7 +193,7 @@ export default function CatalogoPage() {
             <div className="hidden lg:block" />
 
             {/* DOTS */}
-            <div className="pointer-events-auto absolute bottom-10 right-[22%] flex items-center gap-2">
+            <div className="pointer-events-auto flex items-center gap-2 justify-center lg:justify-start lg:absolute lg:bottom-10 lg:right-[22%] mt-6 lg:mt-0">
               {HERO_SLIDES.map((_, i) => (
                 <button
                   key={i}
@@ -238,86 +204,45 @@ export default function CatalogoPage() {
                 />
               ))}
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ================== POPULARES (Carousel estilo “zoom center”) ================== */}
-      <section className="mx-auto max-w-7xl px-4 md:px-8 py-12">
-        <SectionTitle label="Productos Populares" ghost="Populares" />
-        <PopularCarousel items={campanas8} buildHref={buildProductHref} primary={PRIMARY} />
-      </section>
-
-      {/* ================== DESTACADOS (4 por vista) ================== */}
-      <section className="mx-auto max-w-7xl px-4 md:px-8 py-12">
-        <SectionTitle label=" & Destacados" ghost="Destacados" />
-        <div className="relative mt-12">
-          <button
-            aria-label="Anterior"
-            onClick={() => setFeatPage((p) => Math.max(0, p - 1))}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full border border-slate-300 bg-white grid place-items-center hover:bg-slate-50 shadow-sm"
-          >
-            ‹
-          </button>
-          <button
-            aria-label="Siguiente"
-            onClick={() => setFeatPage((p) => Math.min(maxFeatPage, p + 1))}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full border border-slate-300 bg-white grid place-items-center hover:bg-slate-50 shadow-sm"
-          >
-            ›
-          </button>
-
-          <div className="mx-14 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-            {paginatedFeatured.map((p) => {
-              const href = buildProductHref(p);
-              const hasDiscount = p.compareAtPrice && p.price && p.compareAtPrice > p.price;
-              return (
-                <article key={p.id} className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200 hover:shadow-[0_10px_30px_rgba(0,0,0,.06)] transition">
-                  <div className="aspect-square grid place-items-center rounded-lg mb-4 bg-white">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.image} alt={p.name} className="h-[88%] w-[88%] object-contain" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-xs text-slate-500">{p.category}</div>
-                      <h4 className="text-[15px] font-semibold">{p.name}</h4>
-                    </div>
-                    {hasDiscount ? (
-                      <div className="text-right">
-                        <div className="text-xs line-through text-slate-400">${p.compareAtPrice}</div>
-                        <div className="text-sm font-bold" style={{ color: PRIMARY }}>${p.price}</div>
-                      </div>
-                    ) : p.price ? (
-                      <div className="text-sm font-bold" style={{ color: PRIMARY }}>${p.price}</div>
-                    ) : null}
-                  </div>
-                  <div className="mt-3">
-                    <Link
-                      href={href}
-                      className="inline-flex items-center justify-center rounded-md px-4 py-2 text-white text-sm font-semibold"
-                      style={{ backgroundColor: PRIMARY }}
-                    >
-                      Ver detalle
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
+            {/* FLECHAS ELEGANTES */}
+            <button
+              onClick={() => setHeroIdx((heroIdx - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
+              aria-label="Anterior"
+              className="absolute left-4 md:left-8 lg:left-12 top-1/2 -translate-y-1/2 z-20 grid place-items-center
+                         h-12 w-12 rounded-full bg-white/90 hover:bg-white text-slate-800
+                         shadow-lg transition-all hover:scale-110"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M15 18l-6-6 6-6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            <button
+              onClick={() => setHeroIdx((heroIdx + 1) % HERO_SLIDES.length)}
+              aria-label="Siguiente"
+              className="absolute right-4 md:right-8 lg:right-12 top-1/2 -translate-y-1/2 z-20 grid place-items-center
+                         h-12 w-12 rounded-full bg-white/90 hover:bg-white text-slate-800
+                         shadow-lg transition-all hover:scale-110"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M9 18l6-6-6-6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
           </div>
         </div>
       </section>
 
       {/* ================== FILTRO + TODOS NUESTROS PRODUCTOS ================== */}
       {/* ================== FILTRO + TODOS NUESTROS PRODUCTOS ================== */}
-      <section className="mx-auto max-w-7xl px-4 md:px-8 py-12">
+      <section className="mx-auto max-w-7xl px-4 md:px-8 py-20">
         <SectionTitle label="Todos nuestros productos" ghost="Productos" />
 
         {/* Filtro */}
-        <div className="mb-8">
-          <div className="relative mx-auto w-full max-w-3xl rounded-2xl bg-slate-50 p-1.5 ring-1 ring-slate-200">
+        <div className="mb-8 mt-12">
+          <div className="relative mx-auto w-full max-w-3xl rounded-2xl bg-slate-50 p-1 sm:p-1.5 ring-1 ring-slate-200">
             <div
               ref={railRef}
-              className="relative grid"
+              className="relative grid gap-0.5 sm:gap-1"
               style={{ gridTemplateColumns: `repeat(${CATEGORIES.length}, 1fr)` }}
             >
               {/* Indicador azul perfectamente alineado */}
@@ -334,7 +259,7 @@ export default function CatalogoPage() {
                     type="button"
                     onClick={() => setFilter(cat)}
                     className={[
-                      'relative z-10 flex h-11 items-center justify-center rounded-xl text-sm font-semibold transition',
+                      'relative z-10 flex h-9 sm:h-11 items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition',
                       active ? 'text-white' : 'text-slate-900 hover:text-slate-700',
                     ].join(' ')}
                   >
@@ -358,23 +283,17 @@ export default function CatalogoPage() {
               return (
                 <article
                   key={p.id}
-                  className="group rounded-2xl bg-white ring-1 ring-slate-200 p-5 transition
+                  className="group rounded-lg bg-white ring-1 ring-slate-200 p-5 transition
                        hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,.07)]"
                 >
                   <Link href={href} className="block">
-                    <div className="relative w-full aspect-square overflow-hidden rounded-xl">
+                    <div className="relative w-full aspect-[4/3] overflow-hidden rounded-lg">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={p.image}
                         alt={p.name}
-                        className="h-[90%] w-[90%] object-contain mx-auto my-auto"
+                        className="h-full w-full object-contain"
                       />
-                      <span
-                        className="absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-semibold text-white"
-                        style={{ backgroundColor: PRIMARY }}
-                      >
-                        {p.category}
-                      </span>
                     </div>
                   </Link>
                   <h4 className="mt-4 text-lg font-semibold">{p.name}</h4>
@@ -382,7 +301,7 @@ export default function CatalogoPage() {
                   <div className="mt-4 flex items-center justify-between">
                     <Link
                       href={href}
-                      className="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold transition"
+                      className="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold transition"
                       style={{ backgroundColor: `${PRIMARY}1A`, color: PRIMARY }}
                     >
                       Ver detalle

@@ -44,8 +44,8 @@ export default function LinesCarousel() {
     <section id="lineas" className="relative w-full bg-white">
       <div className="relative mx-auto max-w-[1400px] px-2 sm:px-4 md:px-6 py-14 md:py-16 w-full">
 
-        {/* ===== TÍTULO “Nuestras líneas” (ghost + título centrado) ===== */}
-        <div className="relative mb-10 md:mb-12">
+        {/* ===== TÍTULO "Nuestras líneas" (ghost + título centrado) ===== */}
+        <div className="relative mb-6 md:mb-8">
           <div className="relative h-[110px] md:h-[140px] lg:h-40">
             <span
               className="pointer-events-none absolute inset-0 grid place-items-center

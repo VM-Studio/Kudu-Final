@@ -103,13 +103,10 @@ export default function PerfilPage() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white text-slate-700">
       <div className={`${sora.className} mx-auto max-w-6xl px-4 py-10`}>
         {/* TÍTULO con la MISMA fuente que el hero */}
-        <header className="mb-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 font-[Montserrat_Alternates]">
+        <header className="mb-10 text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
             Nuestras Publicaciones
           </h1>
-          <p className="mt-2 text-base md:text-lg text-slate-500">
-            Recursos descargables, publicaciones y videos informativos.
-          </p>
         </header>
 
         {/* PDFs */}
@@ -118,24 +115,18 @@ export default function PerfilPage() {
           <div className="mb-4 flex flex-col md:flex-row items-stretch justify-between gap-4 md:gap-6">
             {/* Banner 1 */}
             <div className="w-full md:w-1/2">
-              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-3xl border border-zinc-200 bg-white px-5 py-4 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[120px]">
+              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-xl border border-zinc-200 bg-white px-5 py-3 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[100px]">
                 <div className="flex items-center gap-3">
-                  <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
-                    Vigente
-                  </span>
                   <div className="flex flex-col">
-                    <span className="text-base md:text-lg font-semibold text-[#233265] leading-tight">
+                    <span className="text-sm md:text-base font-semibold text-[#233265] leading-tight">
                       Catálogo completo
-                    </span>
-                    <span className="text-sm text-zinc-500">
-                      PDF actualizado — todos los productos
                     </span>
                   </div>
                 </div>
                 <a
                   href="/catalogo.pdf"
                   download
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#63798a]/10 px-5 py-3 text-[#63798a] font-semibold hover:bg-[#63798a] hover:text-white transition"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#63798a]/10 px-5 py-3 text-[#63798a] text-sm font-semibold hover:bg-[#63798a] hover:text-white transition"
                   aria-label="Descargar catálogo en PDF"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
@@ -148,24 +139,18 @@ export default function PerfilPage() {
 
             {/* Banner 2 */}
             <div className="w-full md:w-1/2">
-              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-3xl border border-zinc-200 bg-white px-5 py-4 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[120px]">
+              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-xl border border-zinc-200 bg-white px-5 py-3 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[100px]">
                 <div className="flex items-center gap-3">
-                  <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
-                    Vigente
-                  </span>
                   <div className="flex flex-col">
-                    <span className="text-base md:text-lg font-semibold text-[#233265] leading-tight">
+                    <span className="text-sm md:text-base font-semibold text-[#233265] leading-tight">
                       Detalle de nuestro Catálogo
-                    </span>
-                    <span className="text-sm text-zinc-500">
-                      PDF actualizado — todos los productos
                     </span>
                   </div>
                 </div>
                 <a
                   href="/detalle.pdf"
                   download
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#63798a]/10 px-5 py-3 text-[#63798a] font-semibold hover:bg-[#63798a] hover:text-white transition"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#63798a]/10 px-5 py-3 text-[#63798a] text-sm font-semibold hover:bg-[#63798a] hover:text-white transition"
                   aria-label="Descargar catálogo en PDF"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
@@ -184,7 +169,7 @@ export default function PerfilPage() {
             <li>
               <button
                 onClick={() => setTab("posts")}
-                className={`relative py-3 text-2xl font-semibold font-[Montserrat_Alternates] ${
+                className={`relative py-3 text-lg font-semibold ${
                   tab === "posts" ? "text-[#647a8b]" : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -195,7 +180,7 @@ export default function PerfilPage() {
             <li>
               <button
                 onClick={() => setTab("videos")}
-                className={`relative py-3 text-2xl font-semibold font-[Montserrat_Alternates] ${
+                className={`relative py-3 text-lg font-semibold ${
                   tab === "videos" ? "text-[#647a8b]" : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -209,12 +194,12 @@ export default function PerfilPage() {
         {/* Panels */}
         <div className="mt-8">
           {tab === "posts" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {posts.map((src, i) => (
                 <button
                   key={src + i}
                   onClick={() => setModal({ open: true, type: "image", src })}
-                  className="group relative block overflow-hidden rounded-3xl ring-1 ring-black/5 bg-slate-200 aspect-square shadow-[0_12px_30px_-14px_rgba(0,0,0,0.25)]"
+                  className="group relative block overflow-hidden rounded-lg ring-1 ring-black/5 bg-slate-200 aspect-square shadow-[0_12px_30px_-14px_rgba(0,0,0,0.25)]"
                   title={`Abrir imagen ${i + 1}`}
                 >
                   <img src={src} alt={`post-${i + 1}`} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" draggable={false} />
@@ -223,13 +208,13 @@ export default function PerfilPage() {
             </div>
           ) : (
             /* === VIDEOS: VERTICALES (con múltiples fuentes) === */
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {videos.map((candidates, i) => (
                 <button
                   key={candidates.join("|")}
                   onClick={() => setModal({ open: true, type: "video", src: candidates[0] })}
-                  className="group relative block overflow-hidden rounded-3xl ring-1 ring-black/5 bg-black
-                             aspect-[9/16] md:min-h=[520px] lg:min-h=[600px] shadow-[0_12px_30px_-14px_rgba(0,0,0,0.25)]"
+                  className="group relative block overflow-hidden rounded-lg ring-1 ring-black/5 bg-black
+                             aspect-[9/16] shadow-[0_12px_30px_-14px_rgba(0,0,0,0.25)]"
                   title={`Reproducir video ${i + 1}`}
                 >
                   <video

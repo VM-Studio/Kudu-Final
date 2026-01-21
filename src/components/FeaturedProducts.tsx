@@ -2,6 +2,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
+import Link from "next/link";
 import type { Product } from "@/components/data/products";
 import { PRODUCTS } from "@/components/data/products";
 
@@ -42,7 +43,7 @@ export default function FeaturedProducts() {
   return (
     <section
       id="destacados"
-      className="mx-auto max-w-6xl px-3 sm:px-6 pt-16 pb-12 w-full"
+      className="mx-auto max-w-6xl px-3 sm:px-6 pt-32 pb-12 w-full"
       aria-labelledby="destacados-title"
     >
       <div className="relative mb-12">
@@ -55,7 +56,7 @@ export default function FeaturedProducts() {
           Productos destacados
         </h2>
         <p className="absolute inset-0 flex items-center justify-center text-center font-extrabold text-[#111] 
-                       text-[24px] sm:text-[32px] md:text-[36px] leading-tight">
+                       text-[32px] sm:text-[42px] md:text-[48px] leading-tight">
           Elegidos por los clientes
         </p>
       </div>
@@ -67,10 +68,11 @@ export default function FeaturedProducts() {
 
           if (isBig) {
             return (
-              <div
+              <Link
                 key={p.id}
+                href={`/catalogo/${p.id}`}
                 className="group relative isolate overflow-visible rounded-3xl bg-[#EEF1F5] shadow-sm ring-1 ring-black/5
-                           p-5 sm:p-6 md:p-7 min-h-[200px]"
+                           p-5 sm:p-6 md:p-7 min-h-[200px] block cursor-pointer transition-all hover:shadow-lg"
               >
                 <div className="grid grid-cols-2 gap-6 items-center">
                   {/* Imagen centrada */}
@@ -109,16 +111,17 @@ export default function FeaturedProducts() {
 
                 <div className="pointer-events-none absolute inset-0 rounded-3xl ring-0 transition 
                                 group-hover:ring-2 group-hover:ring-[#647A8B]/30" />
-              </div>
+              </Link>
             );
           }
 
           // Resto sin modificar
           return (
-            <div
+            <Link
               key={p.id}
+              href={`/catalogo/${p.id}`}
               className="group relative isolate overflow-visible rounded-3xl bg-[#EEF1F5] shadow-sm ring-1 ring-black/5
-                         p-5 sm:p-6 md:p-7 min-h-[200px] flex items-center"
+                         p-5 sm:p-6 md:p-7 min-h-[200px] flex items-center cursor-pointer transition-all hover:shadow-lg"
             >
               <div className="absolute top-2 left-4 md:top-3 md:left-5 z-10">
                 <Image
@@ -154,7 +157,7 @@ export default function FeaturedProducts() {
 
               <div className="pointer-events-none absolute inset-0 rounded-3xl ring-0 transition 
                               group-hover:ring-2 group-hover:ring-[#647A8B]/30" />
-            </div>
+            </Link>
           );
         })}
       </div>

@@ -22,9 +22,9 @@ export default function ProductDetailPage() {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
         <h1 className="text-2xl md:text-3xl font-bold text-slate-900">Producto no encontrado</h1>
-        <p className="mt-3 text-slate-600">No pude encontrar “{routeId}” en tu lista de productos.</p>
+        <p className="mt-3 text-slate-600">No pude encontrar "{routeId}" en tu lista de productos.</p>
         <div className="mt-6">
-          <Link href="/catalogo" className="inline-flex rounded-xl border border-slate-300 px-4 py-2.5 font-semibold">
+          <Link href="/catalogo" className="inline-flex rounded-lg border border-slate-300 px-4 py-2.5 font-semibold">
             Volver al catálogo
           </Link>
         </div>
@@ -93,7 +93,7 @@ if (!gallery.length) gallery = [normalize((product as any).image)];
                   aria-label={`Ver imagen ${i + 1}`}
                 >
                   {/* miniatura con <img> para evitar bloqueo de dominios externos */}
-                  <img src={src} alt={`${product.name} ${i + 1}`} className="h-full w-full object-contain p-1.5" />
+                  <img src={src} alt={`${product.name} ${i + 1}`} className="h-full w-full object-cover" />
                 </button>
               ))}
             </div>
@@ -102,14 +102,6 @@ if (!gallery.length) gallery = [normalize((product as any).image)];
 
         <section className="flex flex-col">
           <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">{product.name}</h1>
-          {product.category && (
-            <p
-              className="mt-2 inline-flex w-max items-center rounded-full px-3 py-1 text-sm font-semibold"
-              style={{ color: ACCENT, background: "rgba(100,122,139,.10)" }}
-            >
-              {product.category}
-            </p>
-          )}
           {product.short && <p className="mt-6 text-slate-600 text-base md:text-lg">{product.short}</p>}
           {product.specs?.length ? (
             <div className="mt-4 flex flex-wrap gap-2">
@@ -129,14 +121,14 @@ if (!gallery.length) gallery = [normalize((product as any).image)];
               href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Hola KUDU, me interesa: ${product.name} (ID: ${product.id})`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-white font-semibold shadow transition"
+              className="inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-white font-semibold shadow transition"
               style={{ background: ACCENT }}
             >
               Consultar por WhatsApp
             </a>
             <Link
               href="/catalogo"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-2.5 font-semibold"
+              className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 font-semibold"
             >
               Volver al catálogo
             </Link>

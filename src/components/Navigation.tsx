@@ -11,7 +11,6 @@ const LINKS = [
   { label: "Inicio", href: "/" },
   { label: "Catálogo", href: "/catalogo" },
   { label: "Perfil", href: "/perfil" },
-  { label: "Contacto", href: "/contacto" },
 ];
 
 export default function Navigation() {
@@ -29,7 +28,6 @@ export default function Navigation() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
-  const waNumber = "5491159278803";
   const linkBase = "text-sm transition font-extrabold";
   const linkIdle = "text-[#222] hover:text-[#647A8B]";
   const linkActive = "text-[#647A8B]";
@@ -61,29 +59,25 @@ export default function Navigation() {
             />
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-6 md:flex">
-            {LINKS.map((l) => (
-              <Link
-                key={l.label}
-                href={l.href}
-                className={`${linkBase} ${isActive(l.href) ? linkActive : linkIdle}`}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* WhatsApp */}
-          <div className="hidden items-center gap-3 md:flex">
-            <a
-              className="inline-flex h-10 items-center justify-center rounded-xl bg-[#647A8B] px-5 text-sm font-semibold text-white transition hover:bg-[#586c7c]"
-              href={`https://wa.me/${waNumber}`}
-              target="_blank"
-              rel="noreferrer"
+          {/* Desktop nav + Contacto */}
+          <div className="hidden items-center gap-6 md:flex">
+            <nav className="flex items-center gap-6">
+              {LINKS.map((l) => (
+                <Link
+                  key={l.label}
+                  href={l.href}
+                  className={`${linkBase} ${isActive(l.href) ? linkActive : linkIdle}`}
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+            <Link
+              className="inline-flex h-10 items-center justify-center rounded-none bg-[#647A8B] px-5 text-sm font-semibold text-white transition hover:bg-[#586c7c]"
+              href="/contacto"
             >
-              WhatsApp
-            </a>
+              Contacto
+            </Link>
           </div>
 
           {/* Burger */}
@@ -137,14 +131,13 @@ export default function Navigation() {
             </nav>
 
             <div className="flex flex-col gap-2 px-5">
-              <a
-                className="inline-flex h-10 items-center justify-center rounded-xl bg-[#647A8B] px-5 text-sm font-semibold text-white transition hover:bg-[#586c7c]"
-                href={`https://wa.me/${waNumber}`}
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-none bg-[#647A8B] px-5 text-sm font-semibold text-white transition hover:bg-[#586c7c]"
+                href="/contacto"
+                onClick={() => setOpen(false)}
               >
-                WhatsApp
-              </a>
+                Contacto
+              </Link>
             </div>
 
             <div className="px-5 py-6 text-xs text-[#777]">
