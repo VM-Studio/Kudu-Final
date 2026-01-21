@@ -58,7 +58,7 @@ export default function HeroInicio() {
   <div className="flex flex-col md:flex-row md:gap-0 w-full">
         {/* === CARRUSEL (75% del ancho, pegado a la izquierda) === */}
   <div className="w-full md:w-[75vw] shrink-0">
-          <div className="relative h-[42vh] sm:h-[52vh] md:h-[60vh] lg:h-[66vh] overflow-hidden rounded-2xl md:rounded-r-2xl">
+          <div className="relative h-[42vh] sm:h-[52vh] md:h-[60vh] lg:h-[66vh] overflow-hidden rounded-none md:rounded-none">
             {/* Slides */}
             <div className="absolute inset-0">
               {SLIDES.map((s, i) => {
@@ -80,13 +80,13 @@ export default function HeroInicio() {
                         priority={active}
                         sizes="100vw"
                         quality={100}
-                        className="object-cover object-left rounded-2xl"
+                        className="object-cover object-left rounded-none"
                         draggable={false}
                       />
                     ) : (
                       <video
                         ref={(el) => { videoRefs.current[i] = el; }}
-                        className="absolute inset-0 w-full h-full object-cover object-left rounded-2xl"
+                        className="absolute inset-0 w-full h-full object-cover object-left rounded-none"
                         muted
                         playsInline
                         preload="auto"
@@ -134,18 +134,6 @@ export default function HeroInicio() {
                 />
               </svg>
             </button>
-
-            {/* Indicadores */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-              {SLIDES.map((_, i) => (
-                <span
-                  key={i}
-                  className={`h-1.5 w-6 rounded-full transition ${
-                    i === idx ? 'bg-white/90' : 'bg-white/40'
-                  }`}
-                />
-              ))}
-            </div>
           </div>
         </div>
 

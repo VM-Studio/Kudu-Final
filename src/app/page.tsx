@@ -110,10 +110,10 @@ export default function Home() {
       {/* HERO */}
       <section
         aria-label="Hero"
-        className="relative w-full overflow-hidden py-12 md:py-16"
+        className="relative w-full overflow-hidden py-8 md:py-12"
       >
         <div className="mx-auto max-w-7xl px-4">
-          <div className="grid grid-cols-1 md:grid-cols-[65%_35%] gap-8 md:gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-[60%_40%] gap-8 md:gap-12 items-center">
             {/* Mitad izquierda - Contenido centrado */}
             <div className="flex flex-col justify-center space-y-4 md:space-y-6 pr-0 md:pr-8">
               <span className="inline-flex items-center rounded-full bg-[#647A8B]/10 px-3 py-1 text-[11px] font-semibold text-[#647A8B] uppercase tracking-wider w-max">
@@ -121,15 +121,15 @@ export default function Home() {
               </span>
 
               <h1 className="font-extrabold leading-[1.08] text-[#111] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-                Innovación, estilo y potencia en cada detalle.
+                Soluciones integrales en equipamiento para grandes proyectos
               </h1>
 
               <p className="text-base sm:text-[17px] md:text-lg leading-7 text-[#444]">
-                Diseño elegante, potencia y seguridad para tu cocina: Purificadores,
-                Campanas, Extractores, Hornos y Anafes KUDU.
+                Diseño elegante, potencia y seguridad para tu cocina: <span className="font-semibold">Purificadores,
+                Campanas, Extractores, Hornos y Anafes KUDU.</span>
               </p>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 mt-6">
                 <Link
                   href="/catalogo"
                   className="inline-flex items-center justify-center rounded-none bg-[#647A8B] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#586c7c]"
@@ -145,9 +145,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Mitad derecha - Video cuadrado */}
+            {/* Mitad derecha - Video rectangular vertical */}
             <div className="flex items-center justify-center mt-8 md:mt-0">
-              <div className="relative w-full max-w-[280px] sm:max-w-sm md:max-w-md aspect-square overflow-hidden rounded-lg shadow-xl">
+              <div className="relative w-[95%] h-[450px] sm:h-[500px] md:h-[550px] overflow-hidden rounded-lg shadow-xl">
                 <video
                   className="absolute inset-0 w-full h-full object-cover"
                   autoPlay

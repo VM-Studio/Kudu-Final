@@ -146,7 +146,7 @@ export default function CatalogoPage() {
         <div className="absolute inset-0 pointer-events-none"></div>
 
         <div className="relative mx-auto max-w-7xl px-4 md:px-8" style={{ minHeight: '60vh' }}>
-          {/* IMAGEN DEL HERO (SIN TARJETA) - Oculta en móviles */}
+          {/* IMAGEN DEL HERO - Desktop: posición absoluta, Mobile: en el grid */}
           <div
             className="
               hidden lg:block
@@ -169,8 +169,22 @@ export default function CatalogoPage() {
             }}
           />
 
-          {/* TEXTO A LA DERECHA */}
+          {/* CONTENIDO GRID */}
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center py-12 lg:py-16">
+            {/* IMAGEN MOBILE - Solo visible en pantallas pequeñas */}
+            <div className="lg:hidden flex items-center justify-center">
+              <div
+                className="w-full max-w-md h-64 sm:h-80"
+                style={{
+                  backgroundImage: `url('${HERO_SLIDES[heroIdx]?.img ?? '/hero/1.jpg'}')`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center'
+                }}
+              />
+            </div>
+
+            {/* TEXTO */}
             <div className="lg:col-start-2 max-w-xl lg:pl-8 text-center lg:text-left">
               <h1 className="mt-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900">
                 {HERO_SLIDES[heroIdx]?.title ?? 'New Car Parts'}
@@ -188,19 +202,6 @@ export default function CatalogoPage() {
             </div>
 
             <div className="hidden lg:block" />
-
-            {/* DOTS */}
-            <div className="pointer-events-auto flex items-center gap-2 justify-center lg:justify-start lg:absolute lg:bottom-10 lg:right-[22%] mt-6 lg:mt-0">
-              {HERO_SLIDES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setHeroIdx(i)}
-                  aria-label={`Ir al slide ${i + 1}`}
-                  className={`h-2.5 w-2.5 rounded-full ring-1 ring-slate-300 transition
-                    ${i === heroIdx ? 'bg-slate-900' : 'bg-white hover:bg-slate-200'}`}
-                />
-              ))}
-            </div>
 
             {/* FLECHAS ELEGANTES */}
             <button
@@ -239,7 +240,7 @@ export default function CatalogoPage() {
           <div className="relative mx-auto w-full max-w-3xl rounded-2xl bg-slate-50 p-1 sm:p-1.5 ring-1 ring-slate-200">
             <div
               ref={railRef}
-              className="relative grid gap-0.5 sm:gap-1"
+              className="relative grid gap-1.5 sm:gap-1"
               style={{ gridTemplateColumns: `repeat(${CATEGORIES.length}, 1fr)` }}
             >
               {/* Indicador azul perfectamente alineado */}

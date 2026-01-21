@@ -43,9 +43,8 @@ export default function LinesCarousel() {
   return (
     <section id="lineas" className="relative w-full bg-white">
       <div className="relative mx-auto max-w-[1400px] px-2 sm:px-4 md:px-6 py-14 md:py-16 w-full">
-
         {/* ===== TÍTULO "Nuestras líneas" (ghost + título centrado) ===== */}
-        <div className="relative mb-6 md:mb-8">
+        <div className="relative mb-2 md:mb-3">
           <div className="relative h-[110px] md:h-[140px] lg:h-40">
             <span
               className="pointer-events-none absolute inset-0 grid place-items-center
@@ -69,7 +68,7 @@ export default function LinesCarousel() {
             style={{ backgroundColor: ACCENT }}
           />
         </div>
-        {/* ===== /TÍTULO ===== */}
+        
 
         <div className="relative">
           {/* === LATERAL IZQUIERDO: imagen arriba, botón abajo === */}
@@ -210,32 +209,10 @@ export default function LinesCarousel() {
                   Colección KUDU
                 </div>
               </div>
-
-              <div className="hidden md:flex items-center gap-4">
-                <span className="font-semibold" style={{ color: ACCENT }}>
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-                <span className="h-px w-24" style={{ background: "#00000020" }} />
-                <ul className="flex items-center gap-4 text-sm">
-                  {items.map((_, i) => (
-                    <li key={i}>
-                      <button
-                        aria-label={`Ir a ${i + 1}`}
-                        onClick={() => setIdx(i)}
-                        className={`transition ${
-                          i === idx ? "text-[#111] font-semibold" : "text-[#606060]"
-                        }`}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </div>
 
-          {/* CONTROLES MOBILE (sin cambios) */}
+          {/* CONTROLES MOBILE */}
           <div className="mt-8 flex items-center justify-between px-6 md:hidden">
             <button onClick={goLeft} aria-label="Anterior" className="inline-flex items-center gap-2 text-[#111]">
               <span className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-black/10" style={{ color: ACCENT }}>
@@ -243,17 +220,6 @@ export default function LinesCarousel() {
               </span>
               <span className="text-sm" style={{ color: ACCENT }}>Anterior</span>
             </button>
-            <div className="flex items-center gap-2">
-              {items.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setIdx(i)}
-                  aria-label={`Ir a ${i + 1}`}
-                  className={`h-1.5 w-6 rounded-full transition ${i === idx ? "" : "opacity-40"}`}
-                  style={{ background: ACCENT }}
-                />
-              ))}
-            </div>
             <button onClick={goRight} aria-label="Siguiente" className="inline-flex items-center gap-2 text-[#111]">
               <span className="text-sm" style={{ color: ACCENT }}>Siguiente</span>
               <span className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-black/10" style={{ color: ACCENT }}>
@@ -262,12 +228,9 @@ export default function LinesCarousel() {
             </button>
           </div>
         </div>
-      </div>
+    </div>
 
-      <div
-  className="h-0.5 w-full"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(97,119,137,.35), transparent)" }}
-      />
+      <div className="h-px w-full bg-slate-200"></div>
     </section>
   );
 }

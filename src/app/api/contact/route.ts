@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     }
 
     // Enviar email usando Resend
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: 'KUDUOBRAS - Contacto <onboarding@resend.dev>',
       to: ['obras@geneve.com.ar'],
       subject: `Nueva consulta - KUDUOBRAS - ${name}`,
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { success: true, message: 'Mensaje enviado correctamente', data },
+      { success: true, message: 'Mensaje enviado correctamente' },
       { status: 200 }
     );
   } catch (error) {
