@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-  <body className="min-h-dvh bg-white text-[#111] antialiased w-full max-w-full overflow-x-hidden px-0 sm:px-0 md:px-0">
+    <html lang="es" className="overflow-x-hidden">
+  <body className="min-h-dvh bg-white text-[#111] antialiased w-full max-w-[100vw] overflow-x-hidden">
         {/* Loader global: siempre dentro de Suspense */}
         <Suspense fallback={null}>
           <LoadingOverlay />

@@ -17,7 +17,7 @@ export const BRAND = {
     contact: {
       phone: "1121866112",
       email: "info@kudu.com.ar",
-      address: "Gral Savio 26, Garín, Buenos Aires",
+      address: "Av. Dr. Honorio Pueyrredón 6020, B1631 Villa Rosa, Provincia de Buenos Aires",
     },
   };
   
