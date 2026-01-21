@@ -145,16 +145,16 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Mitad derecha - Video rectangular vertical */}
+            {/* Mitad derecha - Video rectangular horizontal */}
             <div className="flex items-center justify-center mt-8 md:mt-0">
-              <div className="relative w-[95%] h-[450px] sm:h-[500px] md:h-[550px] overflow-hidden rounded-lg shadow-xl">
+              <div className="relative w-full aspect-video overflow-hidden rounded-lg shadow-xl">
                 <video
                   className="absolute inset-0 w-full h-full object-cover"
                   autoPlay
                   loop
                   muted
                   playsInline
-                  src="/herovideo.mp4"
+                  src="/opcionhero.mp4"
                 />
               </div>
             </div>
