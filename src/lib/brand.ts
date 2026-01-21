@@ -15,8 +15,8 @@ export const BRAND = {
       facebook: "kudu.argentina",
     },
     contact: {
-      phone: "1121866112",
-      email: "info@kudu.com.ar",
+      phone: "5491159278803",
+      email: "obras@geneve.com.ar",
       address: "Av. Dr. Honorio Pueyrredón 6020, B1631 Villa Rosa, Provincia de Buenos Aires",
     },
   };

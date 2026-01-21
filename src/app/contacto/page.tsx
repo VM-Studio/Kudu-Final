@@ -177,12 +177,12 @@ export default function ContactoPage() {
             </a>
             <span className="hidden sm:inline text-slate-400">•</span>
             <a
-              href="https://wa.me/5491124248700"
+              href="https://wa.me/5491159278803"
               target="_blank"
               rel="noreferrer"
               className="text-[#547184] hover:underline font-medium"
             >
-              +54 9 11 2424-8700
+              +54 9 11 5927-8803
             </a>
           </div>
         </div>

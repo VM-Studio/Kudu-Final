@@ -72,9 +72,9 @@ export default function FeaturedProducts() {
                 key={p.id}
                 href={`/catalogo/${p.id}`}
                 className="group relative isolate overflow-visible rounded-3xl bg-[#EEF1F5] shadow-sm ring-1 ring-black/5
-                           p-5 sm:p-6 md:p-7 min-h-[200px] block cursor-pointer transition-all hover:shadow-lg"
+                           p-5 sm:p-6 md:p-7 min-h-[280px] block cursor-pointer transition-all hover:shadow-lg"
               >
-                <div className="grid grid-cols-2 gap-6 items-center">
+                <div className="grid grid-cols-2 gap-6 items-center h-full">
                   {/* Imagen centrada */}
                   <div className="flex justify-center items-center">
                     <Image
@@ -121,7 +121,7 @@ export default function FeaturedProducts() {
               key={p.id}
               href={`/catalogo/${p.id}`}
               className="group relative isolate overflow-visible rounded-3xl bg-[#EEF1F5] shadow-sm ring-1 ring-black/5
-                         p-5 sm:p-6 md:p-7 min-h-[200px] flex items-center cursor-pointer transition-all hover:shadow-lg"
+                         p-5 sm:p-6 md:p-7 min-h-[280px] flex items-center cursor-pointer transition-all hover:shadow-lg"
             >
               <div className="absolute top-2 left-4 md:top-3 md:left-5 z-10">
                 <Image

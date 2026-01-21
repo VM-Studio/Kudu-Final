@@ -280,20 +280,20 @@ export default function PerfilPage() {
       {/* MODAL */}
       {modal.open && (
         <div onClick={() => setModal({ open: false })} className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-[1px] grid place-items-center p-4" role="dialog" aria-modal="true">
-          <div onClick={(e) => e.stopPropagation()} className="relative">
-            <button onClick={() => setModal({ open: false })} className="absolute -top-10 right-0 text-white/90 hover:text-white text-sm">
+          <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-[92vw]">
+            <button onClick={() => setModal({ open: false })} className="absolute -top-10 right-0 text-white/90 hover:text-white text-sm z-50">
               Cerrar ✕
             </button>
 
             {/* Flecha izquierda */}
             <button
               onClick={goToPrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 md:-translate-x-16
-                         grid place-items-center h-12 w-12 rounded-full bg-white/90 hover:bg-white
-                         text-slate-800 shadow-xl transition-all hover:scale-110"
+              className="absolute left-2 md:left-0 top-1/2 -translate-y-1/2 md:-translate-x-16
+                         grid place-items-center h-10 w-10 md:h-12 md:w-12 rounded-full bg-white/90 hover:bg-white
+                         text-slate-800 shadow-xl transition-all hover:scale-110 z-50"
               aria-label="Anterior"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
@@ -301,9 +301,9 @@ export default function PerfilPage() {
             {/* Flecha derecha */}
             <button
               onClick={goToNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 md:translate-x-16
-                         grid place-items-center h-12 w-12 rounded-full bg-white/90 hover:bg-white
-                         text-slate-800 shadow-xl transition-all hover:scale-110"
+              className="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 md:translate-x-16
+                         grid place-items-center h-10 w-10 md:h-12 md:w-12 rounded-full bg-white/90 hover:bg-white
+                         text-slate-800 shadow-xl transition-all hover:scale-110 z-50"
               aria-label="Siguiente"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

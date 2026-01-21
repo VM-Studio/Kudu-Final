@@ -5,6 +5,7 @@ import Link from "next/link";
 
 export default function Footer() {
   const waNumber = BRAND.contact.phone.replace(/\D/g, "");
+  const formattedPhone = "+54 9 11 5927-8803";
 
   return (
     <footer className="border-t border-gray-400 bg-gray-200">
@@ -56,6 +57,7 @@ export default function Footer() {
           <div className="leading-tight">
             <h4 className="text-sm text-[#111] font-semibold mb-2">Contacto</h4>
             <ul className="space-y-1 text-xs text-[#444]">
+              <li className="font-bold text-[#111]">PILAR TRADE CENTER</li>
               <li>{BRAND.contact.address}</li>
               <li>
                 <a
@@ -72,7 +74,7 @@ export default function Footer() {
                   rel="noreferrer"
                   className="hover:text-[#647A8B]"
                 >
-                  +{waNumber}
+                  {formattedPhone}
                 </a>
               </li>
             </ul>
