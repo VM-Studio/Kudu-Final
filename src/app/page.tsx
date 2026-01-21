@@ -78,17 +78,17 @@ function SectionTitle({ label, ghost }: { label: string; ghost: string }) {
 
 export default function Home() {
   const mappedAll: UiProduct[] = useMemo(() => {
-    return PRODUCTS.map((p: any, idx: number) => ({
+    return PRODUCTS.map((p, idx: number) => ({
       id: String(p.id ?? idx + 1),
-      name: p.name ?? p.title ?? 'Producto',
-      description: p.description ?? p.short ?? 'Producto de la línea.',
+      name: p.name ?? 'Producto',
+      description: p.short ?? 'Producto de la línea.',
       image: normSrc(p.image),
       category: (p.category as UiProduct['category']) ?? 'Campanas',
       gallery: Array.isArray(p.gallery) ? p.gallery.map(normSrc) : undefined,
-      popular: !!p.popular,
-      featured: !!p.featured,
-      price: p.price,
-      compareAtPrice: p.compareAtPrice,
+      popular: false,
+      featured: false,
+      price: undefined,
+      compareAtPrice: undefined,
     }));
   }, []);
 

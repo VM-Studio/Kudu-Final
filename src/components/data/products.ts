@@ -24,22 +24,6 @@ export type Product = {
 gallery?: string[];         // Medidas relevantes (clave-valor)
 };
 
-// Helper para armar paths locales de imágenes (evita typos)
-const img = (...parts: string[]) => `/products/${parts.join("/")}`;
-// URL absoluta?
-const isAbsoluteURL = (u: string) => /^https?:\/\//i.test(u);
-
-// Enlace al detalle: si hay galería, la paso por query (?imgs=...)
-function buildProductHref(p: Product) {
-  if (p.gallery && p.gallery.length) {
-    const qs = new URLSearchParams();
-    for (const src of p.gallery) qs.append('imgs', src);
-    return `/catalogo/${encodeURIComponent(p.id)}?${qs.toString()}`;
-  }
-  return `/catalogo/${encodeURIComponent(p.id)}`;
-}
-
-
 /* =========================================================
  * PURIFICADORES
  * ======================================================= */

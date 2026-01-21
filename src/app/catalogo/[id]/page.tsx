@@ -1,10 +1,9 @@
 'use client';
 
 import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
-import { PRODUCTS, type Product, findProduct } from "@/components/data/products";
+import { type Product, findProduct } from "@/components/data/products";
 
 const ACCENT = "#647A8B";
 const WA_NUMBER = "5491159278803";
@@ -18,11 +17,36 @@ export default function ProductDetailPage() {
   const routeId = decodeURIComponent(String(id ?? "").trim());
   const product = routeId ? (findProduct(routeId) as Product | undefined) : undefined;
 
+  // Galería (portada primero) + sanitización (sin vacíos y sin duplicados)
+  const local = product?.images ?? product?.gallery ?? [];
+  const external = product?.externalImages ?? [];
+  let gallery: string[] = product ? [
+    normalize(product.image),
+    ...local.map((s: string) => (s?.startsWith("/") ? s : normalize(s))),
+    ...external,
+  ].filter(Boolean) : [];
+
+  const qp = searchParams?.getAll("imgs");
+  if (qp && qp.length) {
+    const arr = qp
+      .flatMap((s) => (s ? String(s).split(",") : []))
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((s) => (s.startsWith("http") ? s : normalize(s)));
+    gallery = [gallery[0], ...arr, ...gallery.slice(1)];
+  }
+  // eliminar duplicados preservando el orden (portada primero)
+  gallery = Array.from(new Set(gallery));
+  if (!gallery.length && product) gallery = [normalize(product.image)];
+
+  // Crear key única para forzar re-render cuando cambie el producto
+  const galleryKey = useMemo(() => `${routeId}-${gallery.length}`, [routeId, gallery.length]);
+
   if (!product) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
         <h1 className="text-2xl md:text-3xl font-bold text-slate-900">Producto no encontrado</h1>
-        <p className="mt-3 text-slate-600">No pude encontrar "{routeId}" en tu lista de productos.</p>
+        <p className="mt-3 text-slate-600">No pude encontrar &quot;{routeId}&quot; en tu lista de productos.</p>
         <div className="mt-6">
           <Link href="/catalogo" className="inline-flex rounded-lg border border-slate-300 px-4 py-2.5 font-semibold">
             Volver al catálogo
@@ -32,33 +56,11 @@ export default function ProductDetailPage() {
     );
   }
 
-  // Galería (portada primero) + sanitización (sin vacíos y sin duplicados)
- const local = (product as any).images ?? (product as any).gallery ?? [];
- const external = (product as any).externalImages ?? [];
- let gallery: string[] = [
-   normalize((product as any).image),
-   ...local.map((s: string) => (s?.startsWith("/") ? s : normalize(s))),
-   ...external,
-].filter(Boolean);
+  return <ProductDetailInner key={galleryKey} product={product} gallery={gallery} />;
+}
 
-const qp = searchParams?.getAll("imgs");
-if (qp && qp.length) {
-  const arr = qp
-    .flatMap((s) => (s ? String(s).split(",") : []))
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .map((s) => (s.startsWith("http") ? s : normalize(s)));
- gallery = [gallery[0], ...arr, ...gallery.slice(1)];
- }
-// eliminar duplicados preservando el orden (portada primero)
-gallery = Array.from(new Set(gallery));
-if (!gallery.length) gallery = [normalize((product as any).image)];
-
-  // -------- NUEVO: selección de imagen (portada primero) --------
+function ProductDetailInner({ product, gallery }: { product: Product; gallery: string[] }) {
   const [currentIdx, setCurrentIdx] = useState(0);
-  useEffect(() => {
-    setCurrentIdx(0);
-  }, [routeId, gallery.join("|")]);
   const currentSrc = gallery[currentIdx] ?? gallery[0];
 
   return (

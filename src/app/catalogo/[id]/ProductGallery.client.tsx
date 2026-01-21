@@ -1,13 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 
 const ACCENT = "#647A8B";
 
 export function ProductGalleryClient({ name, gallery }: { name: string; gallery: string[] }) {
+  // Crear una key única basada en la galería
+  const galleryKey = useMemo(() => gallery.join("|"), [gallery]);
+  
+  return <ProductGalleryInner name={name} gallery={gallery} key={galleryKey} />;
+}
+
+function ProductGalleryInner({ name, gallery }: { name: string; gallery: string[] }) {
   const [activeIdx, setActiveIdx] = useState(0);
-  useEffect(() => setActiveIdx(0), [gallery?.join("|")]);
 
   return (
     <div className="relative">
@@ -32,7 +38,7 @@ export function ProductGalleryClient({ name, gallery }: { name: string; gallery:
               "relative aspect-square overflow-hidden rounded-xl bg-white ring-1",
               i === activeIdx ? "ring-[--accent] outline outline-2 outline-[--accent]" : "ring-[#e5e7eb] hover:ring-[--accent]",
             ].join(" ")}
-            style={{ ["--accent" as any]: ACCENT }}
+            style={{ "--accent": ACCENT } as React.CSSProperties}
             aria-label={`Ver imagen ${i + 1}`}
           >
             <Image src={src} alt={`${name} ${i + 1}`} fill className="object-contain p-1.5" sizes="120px" />

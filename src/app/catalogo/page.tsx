@@ -1,11 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { PRODUCTS } from '@/components/data/products';
 import { Sora } from 'next/font/google';
-
-import { useLayoutEffect, useRef } from 'react';
 
 const sora = Sora({ subsets: ['latin'], weight: ['400','600','700','800'] });
 const PRIMARY = '#547184';
@@ -76,22 +74,22 @@ function SectionTitle({ label, ghost }: { label: string; ghost: string }) {
 
 export default function CatalogoPage() {
   const mappedAll: UiProduct[] = useMemo(() => {
-    return PRODUCTS.map((p: any, idx: number) => ({
+    return PRODUCTS.map((p, idx: number) => ({
       id: String(p.id ?? idx + 1),
-      name: p.name ?? p.title ?? 'Producto',
-      description: p.description ?? p.short ?? 'Producto de la línea.',
+      name: p.name ?? 'Producto',
+      description: p.short ?? 'Producto de la línea.',
       image: normSrc(p.image),
       category: (p.category as UiProduct['category']) ?? 'Campanas',
       gallery: Array.isArray(p.gallery) ? p.gallery.map(normSrc) : undefined,
-      popular: !!p.popular,
-      featured: !!p.featured,
-      price: p.price,
-      compareAtPrice: p.compareAtPrice,
+      popular: false,
+      featured: false,
+      price: undefined,
+      compareAtPrice: undefined,
     }));
   }, []);
 
-  const [allProducts, setAllProducts] = useState<UiProduct[]>(mappedAll);
-  const [loading, setLoading] = useState(false);
+  const allProducts = mappedAll;
+  const [loading] = useState(false);
 
   /* ===== HERO slides ===== */
   const HERO_SLIDES = useMemo(() => {
@@ -108,9 +106,8 @@ export default function CatalogoPage() {
   /* ===== Filtro (sin "Todos") ===== */
   const [filter, setFilter] = useState<CategoryFilter>(CATEGORIES[0]);
   const products = useMemo(() => allProducts.filter(p => p.category === filter), [allProducts, filter]);
-  const activeIndex = CATEGORIES.indexOf(filter);
 
-  // refs para alinear el “pill” azul exactamente con el botón activo
+  // refs para alinear el "pill" azul exactamente con el botón activo
   const railRef = useRef<HTMLDivElement>(null);
 
   // Tipado estricto por categoría para evitar warnings
@@ -120,21 +117,21 @@ export default function CatalogoPage() {
 
   const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
-  const recalc = () => {
+  const recalc = useCallback(() => {
     const el = btnRefs.current[filter];
     const rail = railRef.current;
     if (!el || !rail) return;
     const elRect = el.getBoundingClientRect();
     const railRect = rail.getBoundingClientRect();
     setIndicator({ left: elRect.left - railRect.left, width: elRect.width });
-  };
+  }, [filter]);
 
-  useLayoutEffect(recalc, [filter]);
+  useLayoutEffect(recalc, [filter, recalc]);
   useEffect(() => {
     const onResize = () => recalc();
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, [filter]);
+  }, [recalc]);
 
   return (
     <div className={`${sora.className} min-h-screen w-full bg-white text-slate-900`}>
@@ -317,14 +314,15 @@ export default function CatalogoPage() {
   );
 }
 
-/* ---------- Componente POPULARES: Carrusel “zoom center” (laterales un poco más abiertas) ---------- */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* ---------- Componente POPULARES: Carrusel "zoom center" (laterales un poco más abiertas) ---------- */
 function PopularCarousel({
   items,
   buildHref,
   primary,
 }: {
   items: { id: string; name: string; image: string; category: string }[];
-  buildHref: (p: any) => string;
+  buildHref: (p: { id: string; name: string; image: string; category: string }) => string;
   primary: string;
 }) {
   const [idx, setIdx] = useState(0);
