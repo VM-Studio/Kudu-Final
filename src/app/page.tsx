@@ -124,7 +124,7 @@ export default function Home() {
                 Soluciones integrales en equipamiento para grandes proyectos
               </h1>
 
-              <p className="text-base sm:text-[17px] md:text-lg leading-7 text-[#444]">
+              <p className="text-sm sm:text-[15px] md:text-base leading-6 text-[#444] mt-2 md:mt-3">
                 Diseño elegante, potencia y seguridad para tu cocina: <span className="font-semibold">Purificadores,
                 Campanas, Extractores, Hornos y Anafes KUDU.</span>
               </p>

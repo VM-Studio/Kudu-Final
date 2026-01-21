@@ -1,7 +1,7 @@
 // src/app/perfil/page.tsx
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Sora } from "next/font/google";
 
 /* ====== Font (debe estar en ámbito de módulo) ====== */
@@ -13,8 +13,8 @@ const sora = Sora({
 type Tab = "posts" | "videos";
 type ModalState =
   | { open: false }
-  | { open: true; type: "image"; src: string }
-  | { open: true; type: "video"; src: string };
+  | { open: true; type: "image"; src: string; index: number }
+  | { open: true; type: "video"; src: string; index: number };
 
 export default function PerfilPage() {
   const [tab, setTab] = useState<Tab>("posts");
@@ -79,13 +79,43 @@ export default function PerfilPage() {
       });
   }, []);
 
-  /* ===== Accesibilidad modal ===== */
+  const goToPrev = useCallback(() => {
+    if (!modal.open) return;
+    const items = modal.type === "image" ? posts : videos;
+    const newIndex = (modal.index - 1 + items.length) % items.length;
+    if (modal.type === "image") {
+      setModal({ open: true, type: "image", src: posts[newIndex], index: newIndex });
+    } else {
+      setModal({ open: true, type: "video", src: videos[newIndex][0], index: newIndex });
+    }
+  }, [modal, posts, videos]);
+
+  const goToNext = useCallback(() => {
+    if (!modal.open) return;
+    const items = modal.type === "image" ? posts : videos;
+    const newIndex = (modal.index + 1) % items.length;
+    if (modal.type === "image") {
+      setModal({ open: true, type: "image", src: posts[newIndex], index: newIndex });
+    } else {
+      setModal({ open: true, type: "video", src: videos[newIndex][0], index: newIndex });
+    }
+  }, [modal, posts, videos]);
+
+  /* ===== Accesibilidad modal + Navegación con flechas ===== */
   useEffect(() => {
     if (!modal.open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setModal({ open: false });
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setModal({ open: false });
+      } else if (e.key === "ArrowLeft") {
+        goToPrev();
+      } else if (e.key === "ArrowRight") {
+        goToNext();
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [modal.open]);
+  }, [modal, goToPrev, goToNext]);
 
   // Bloquea scroll detrás del modal
   useEffect(() => {
@@ -115,7 +145,7 @@ export default function PerfilPage() {
           <div className="mb-4 flex flex-col md:flex-row items-stretch justify-between gap-4 md:gap-6">
             {/* Banner 1 */}
             <div className="w-full md:w-1/2">
-              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-xl border border-zinc-200 bg-white px-5 py-3 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[100px]">
+              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white px-5 py-3 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[100px]">
                 <div className="flex items-center gap-3">
                   <div className="flex flex-col">
                     <span className="text-sm md:text-base font-semibold text-[#233265] leading-tight">
@@ -126,7 +156,7 @@ export default function PerfilPage() {
                 <a
                   href="/catalogo.pdf"
                   download
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#63798a]/10 px-5 py-3 text-[#63798a] text-sm font-semibold hover:bg-[#63798a] hover:text-white transition"
+                  className="inline-flex items-center gap-2 rounded-lg bg-[#63798a]/10 px-5 py-3 text-[#63798a] text-sm font-semibold hover:bg-[#63798a] hover:text-white transition"
                   aria-label="Descargar catálogo en PDF"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
@@ -139,7 +169,7 @@ export default function PerfilPage() {
 
             {/* Banner 2 */}
             <div className="w-full md:w-1/2">
-              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-xl border border-zinc-200 bg-white px-5 py-3 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[100px]">
+              <div className="flex h-full flex-col md:flex-row items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white px-5 py-3 shadow-[0_8px_28px_-16px_rgba(2,6,23,0.12)] min-h-[100px]">
                 <div className="flex items-center gap-3">
                   <div className="flex flex-col">
                     <span className="text-sm md:text-base font-semibold text-[#233265] leading-tight">
@@ -150,7 +180,7 @@ export default function PerfilPage() {
                 <a
                   href="/detalle.pdf"
                   download
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#63798a]/10 px-5 py-3 text-[#63798a] text-sm font-semibold hover:bg-[#63798a] hover:text-white transition"
+                  className="inline-flex items-center gap-2 rounded-lg bg-[#63798a]/10 px-5 py-3 text-[#63798a] text-sm font-semibold hover:bg-[#63798a] hover:text-white transition"
                   aria-label="Descargar catálogo en PDF"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
@@ -198,7 +228,7 @@ export default function PerfilPage() {
               {posts.map((src, i) => (
                 <button
                   key={src + i}
-                  onClick={() => setModal({ open: true, type: "image", src })}
+                  onClick={() => setModal({ open: true, type: "image", src, index: i })}
                   className="group relative block overflow-hidden rounded-lg ring-1 ring-black/5 bg-slate-200 aspect-square shadow-[0_12px_30px_-14px_rgba(0,0,0,0.25)]"
                   title={`Abrir imagen ${i + 1}`}
                 >
@@ -212,7 +242,7 @@ export default function PerfilPage() {
               {videos.map((candidates, i) => (
                 <button
                   key={candidates.join("|")}
-                  onClick={() => setModal({ open: true, type: "video", src: candidates[0] })}
+                  onClick={() => setModal({ open: true, type: "video", src: candidates[0], index: i })}
                   className="group relative block overflow-hidden rounded-lg ring-1 ring-black/5 bg-black
                              aspect-[9/16] shadow-[0_12px_30px_-14px_rgba(0,0,0,0.25)]"
                   title={`Reproducir video ${i + 1}`}
@@ -253,6 +283,32 @@ export default function PerfilPage() {
           <div onClick={(e) => e.stopPropagation()} className="relative">
             <button onClick={() => setModal({ open: false })} className="absolute -top-10 right-0 text-white/90 hover:text-white text-sm">
               Cerrar ✕
+            </button>
+
+            {/* Flecha izquierda */}
+            <button
+              onClick={goToPrev}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 md:-translate-x-16
+                         grid place-items-center h-12 w-12 rounded-full bg-white/90 hover:bg-white
+                         text-slate-800 shadow-xl transition-all hover:scale-110"
+              aria-label="Anterior"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Flecha derecha */}
+            <button
+              onClick={goToNext}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 md:translate-x-16
+                         grid place-items-center h-12 w-12 rounded-full bg-white/90 hover:bg-white
+                         text-slate-800 shadow-xl transition-all hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
             </button>
 
             {modal.type === "image" && (
