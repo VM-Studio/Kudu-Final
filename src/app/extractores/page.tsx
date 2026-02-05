@@ -26,7 +26,7 @@ export default function ExtractoresPage() {
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
+              <h1 className={`${sora.className} text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight`}>
                 Extractores KUDU
               </h1>
               <p className="mt-6 text-lg text-slate-600 leading-relaxed">
@@ -73,7 +73,9 @@ export default function ExtractoresPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
+                <h3 className={`${sora.className} text-xl font-bold text-slate-900 mb-2`}>
+                  {item.title}
+                </h3>
                 <p className="text-slate-600">{item.desc}</p>
               </div>
             ))}
@@ -85,26 +87,47 @@ export default function ExtractoresPage() {
       <section id="productos" className="py-20">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">Todos nuestros modelos</h2>
+            <h2 className={`${sora.className} text-4xl md:text-5xl font-extrabold text-slate-900 mb-4`}>
+              Todos nuestros modelos
+            </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">Encontrá el extractor perfecto para tu espacio</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {extractores.map((p) => (
-              <Link key={p.id} href={`/catalogo/${p.id}`}
-                    className="group bg-white rounded-lg border border-slate-200 overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1">
-                <div className="relative aspect-square bg-white p-6">
-                  <Image src={normSrc(p.image)} alt={p.name} fill className="object-contain transition-transform group-hover:scale-105" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-[#547184]">{p.name}</h3>
-                  {p.short && <p className="text-sm text-slate-600 mb-4 line-clamp-2">{p.short}</p>}
-                  <div className="flex items-center justify-between mt-4">
-                    <span className="text-sm font-semibold" style={{ color: PRIMARY }}>Ver detalles →</span>
-                    <span className="text-xs text-slate-400">ID: {p.id}</span>
+            {extractores.map((p) => {
+              const features = p.short
+                ? p.short.split(".").map((item) => item.trim()).filter(Boolean)
+                : [];
+
+              return (
+                <Link
+                  key={p.id}
+                  href={`/catalogo/${p.id}`}
+                  className="group bg-white border border-slate-200 p-5 transition-colors hover:border-slate-300"
+                >
+                  <div className="relative aspect-4/3 bg-white">
+                    <Image src={normSrc(p.image)} alt={p.name} fill className="object-contain" />
                   </div>
-                </div>
-              </Link>
-            ))}
+                  <div className="mt-5">
+                    <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                      {p.id}
+                    </div>
+                    <h3 className={`${sora.className} mt-2 text-lg font-bold text-slate-900`}>
+                      {p.name}
+                    </h3>
+                    {features.length > 0 ? (
+                      <ul className="mt-3 space-y-1 text-sm text-slate-600">
+                        {features.map((feature, idx) => (
+                          <li key={idx}>{feature}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    <div className="mt-5 inline-flex items-center justify-center border border-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-widest text-slate-900">
+                      Comprar
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
           <div className="mt-16 text-center">
             <p className="text-slate-600 mb-6">¿No encontrás lo que buscás?</p>
@@ -119,12 +142,16 @@ export default function ExtractoresPage() {
       {/* SEO */}
       <section className="py-16 bg-slate-50">
         <div className="mx-auto max-w-4xl px-4 md:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-6">Extractores de Aire KUDU - Ventilación Eficiente</h2>
+          <h2 className={`${sora.className} text-3xl font-bold text-slate-900 mb-6`}>
+            Extractores de Aire KUDU - Ventilación Eficiente
+          </h2>
           <p className="text-slate-600 leading-relaxed mb-4">
             Los <strong>extractores KUDU</strong> son la solución perfecta para mantener el aire fresco 
             y limpio en tu hogar. Potentes, silenciosos y eficientes.
           </p>
-          <h3 className="text-2xl font-bold text-slate-900 mt-8 mb-4">¿Por qué elegir Extractores KUDU?</h3>
+          <h3 className={`${sora.className} text-2xl font-bold text-slate-900 mt-8 mb-4`}>
+            ¿Por qué elegir Extractores KUDU?
+          </h3>
           <ul className="list-disc list-inside space-y-2 text-slate-600 mb-4">
             <li>Motor de alta potencia con bajo consumo energético</li>
             <li>Diseño compacto ideal para baños y cocinas</li>

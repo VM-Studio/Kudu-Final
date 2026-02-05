@@ -89,22 +89,41 @@ export default function PurificadoresPage() {
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">Encontrá el purificador perfecto para tu cocina</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {purificadores.map((p) => (
-              <Link key={p.id} href={`/catalogo/${p.id}`}
-                    className="group bg-white rounded-lg border border-slate-200 overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1">
-                <div className="relative aspect-square bg-white p-6">
-                  <Image src={normSrc(p.image)} alt={p.name} fill className="object-contain transition-transform group-hover:scale-105" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-[#547184]">{p.name}</h3>
-                  {p.short && <p className="text-sm text-slate-600 mb-4 line-clamp-2">{p.short}</p>}
-                  <div className="flex items-center justify-between mt-4">
-                    <span className="text-sm font-semibold" style={{ color: PRIMARY }}>Ver detalles →</span>
-                    <span className="text-xs text-slate-400">ID: {p.id}</span>
+            {purificadores.map((p) => {
+              const features = p.short
+                ? p.short.split(".").map((item) => item.trim()).filter(Boolean)
+                : [];
+
+              return (
+                <Link
+                  key={p.id}
+                  href={`/catalogo/${p.id}`}
+                  className="group bg-white border border-slate-200 p-5 transition-colors hover:border-slate-300"
+                >
+                  <div className="relative aspect-4/3 bg-white">
+                    <Image src={normSrc(p.image)} alt={p.name} fill className="object-contain" />
                   </div>
-                </div>
-              </Link>
-            ))}
+                  <div className="mt-5">
+                    <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                      {p.id}
+                    </div>
+                    <h3 className="mt-2 text-lg font-bold text-slate-900">{p.name}</h3>
+                    {features.length > 0 ? (
+                      <ul className="mt-3 space-y-1 text-sm text-slate-600">
+                        {features.map((feature, idx) => (
+                          <li key={idx}>{feature}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    <div
+                      className="mt-5 inline-flex items-center justify-center border border-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-widest text-slate-900"
+                    >
+                      Comprar
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
           <div className="mt-16 text-center">
             <p className="text-slate-600 mb-6">¿No encontrás lo que buscás?</p>

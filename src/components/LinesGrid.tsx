@@ -44,8 +44,8 @@ export default function LinesCarousel() {
     <section id="lineas" className="relative w-full bg-white">
       <div className="relative mx-auto max-w-[1200px] px-2 sm:px-4 md:px-6 py-14 md:py-16 w-full">
         {/* ===== TÍTULO "Nuestras líneas" (ghost + título centrado) ===== */}
-        <div className="relative mb-2 md:mb-3">
-          <div className="relative h-[110px] md:h-[140px] lg:h-40">
+        <div className="relative mb-0 md:mb-1">
+          <div className="relative h-[100px] md:h-[125px] lg:h-32">
             <span
               className="pointer-events-none absolute inset-0 grid place-items-center
                          font-extrabold leading-none select-none text-slate-200/60
@@ -55,7 +55,7 @@ export default function LinesCarousel() {
             </span>
             <h2
               className="absolute left-1/2 top-1/2 -translate-x-1/2
-                         -translate-y-[48%] md:-translate-y-[46%]
+                         -translate-y-[36%] md:-translate-y-[34%]
                          text-center tracking-tight font-extrabold text-slate-900 z-10
                          whitespace-nowrap
                          text-3xl md:text-5xl lg:text-6xl"
@@ -63,10 +63,6 @@ export default function LinesCarousel() {
               Nuestras líneas
             </h2>
           </div>
-          <div
-            className="mt-2 h-[3px] w-28 mx-auto rounded-full"
-            style={{ backgroundColor: ACCENT }}
-          />
         </div>
         
 
