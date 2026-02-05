@@ -34,14 +34,14 @@ export default function CampanasPage() {
                 olores y humo de manera eficiente. Disponibles en múltiples modelos.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
-                <a href="#productos" className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white rounded-lg transition-all hover:scale-105 shadow-lg"
+                <a href="#productos" className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white transition-all hover:scale-105 shadow-lg"
                    style={{ backgroundColor: PRIMARY }}>
                   Ver todos los modelos
                   <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </a>
-                <Link href="/contacto" className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-lg border-2 transition-all hover:bg-slate-50"
+                <Link href="/contacto" className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold border-2 transition-all hover:bg-slate-50"
                       style={{ borderColor: PRIMARY, color: PRIMARY }}>
                   Contactar a ventas
                 </Link>
@@ -107,7 +107,7 @@ export default function CampanasPage() {
           </div>
           <div className="mt-16 text-center">
             <p className="text-slate-600 mb-6">¿No encontrás lo que buscás?</p>
-            <Link href="/contacto" className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white rounded-lg transition-all hover:scale-105 shadow-lg"
+            <Link href="/contacto" className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white transition-all hover:scale-105 shadow-lg"
                   style={{ backgroundColor: PRIMARY }}>
               Contactanos para más información
             </Link>
