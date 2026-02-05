@@ -145,7 +145,7 @@ export default function CatalogoPage() {
         {/* overlay opcional para contraste del texto */}
         <div className="absolute inset-0 pointer-events-none"></div>
 
-        <div className="relative mx-auto max-w-7xl px-4 md:px-8" style={{ minHeight: '60vh' }}>
+        <div className="relative mx-auto max-w-6xl px-4 md:px-8" style={{ minHeight: '60vh' }}>
           {/* IMAGEN DEL HERO - Desktop: posición absoluta, Mobile: en el grid */}
           <div
             className="
@@ -232,7 +232,7 @@ export default function CatalogoPage() {
 
       {/* ================== FILTRO + TODOS NUESTROS PRODUCTOS ================== */}
       {/* ================== FILTRO + TODOS NUESTROS PRODUCTOS ================== */}
-      <section className="mx-auto max-w-7xl px-4 md:px-8 py-20">
+      <section className="mx-auto max-w-6xl px-4 md:px-8 py-20">
         <SectionTitle label="Todos nuestros productos" ghost="Productos" />
 
         {/* Filtro */}

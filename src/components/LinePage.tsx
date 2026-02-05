@@ -12,7 +12,7 @@ export default function LinePage({ line }: Props) {
   if (!line) return null;
 
   return (
-    <section className="mx-auto max-w-6xl px-5 py-16">
+    <section className="mx-auto max-w-5xl px-5 py-16">
       {/* encabezado */}
       <div className="mb-10 grid gap-6 md:grid-cols-[1.3fr,1fr]">
         <div>

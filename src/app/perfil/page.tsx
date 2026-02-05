@@ -131,7 +131,7 @@ export default function PerfilPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white text-slate-700">
-      <div className={`${sora.className} mx-auto max-w-6xl px-4 py-10`}>
+      <div className={`${sora.className} mx-auto max-w-5xl px-4 py-10`}>
         {/* TÍTULO con la MISMA fuente que el hero */}
         <header className="mb-10 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">

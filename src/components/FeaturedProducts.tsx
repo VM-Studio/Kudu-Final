@@ -43,7 +43,7 @@ export default function FeaturedProducts() {
   return (
     <section
       id="destacados"
-      className="mx-auto max-w-6xl px-3 sm:px-6 pt-32 pb-12 w-full"
+      className="mx-auto max-w-5xl px-3 sm:px-6 pt-32 pb-12 w-full"
       aria-labelledby="destacados-title"
     >
       <div className="relative mb-12">

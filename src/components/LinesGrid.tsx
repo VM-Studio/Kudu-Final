@@ -42,7 +42,7 @@ export default function LinesCarousel() {
 
   return (
     <section id="lineas" className="relative w-full bg-white">
-      <div className="relative mx-auto max-w-[1400px] px-2 sm:px-4 md:px-6 py-14 md:py-16 w-full">
+      <div className="relative mx-auto max-w-[1200px] px-2 sm:px-4 md:px-6 py-14 md:py-16 w-full">
         {/* ===== TÍTULO "Nuestras líneas" (ghost + título centrado) ===== */}
         <div className="relative mb-2 md:mb-3">
           <div className="relative h-[110px] md:h-[140px] lg:h-40">

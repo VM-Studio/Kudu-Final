@@ -80,7 +80,7 @@ export default function LoadingOverlay() {
       </div>
 
       {/* Barra */}
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-[200px]">
         <div className="h-1 rounded-full bg-white/20">
           <div
             className="h-1 rounded-full bg-white transition-[width] duration-200"

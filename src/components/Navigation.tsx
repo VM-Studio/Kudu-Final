@@ -9,7 +9,11 @@ import NavbarLogo from "../../public/navbar.png";
 
 const LINKS = [
   { label: "Inicio", href: "/" },
-  { label: "Catálogo", href: "/catalogo" },
+  { label: "Campanas", href: "/campanas" },
+  { label: "Purificadores", href: "/purificadores" },
+  { label: "Anafes", href: "/anafes" },
+  { label: "Extractores", href: "/extractores" },
+  { label: "Hornos", href: "/hornos" },
   { label: "Perfil", href: "/perfil" },
 ];
 
@@ -46,7 +50,7 @@ export default function Navigation() {
             : "bg-white shadow-[0_10px_32px_-28px_rgba(2,6,23,.24)]"
         ].join(" ")}
       >
-  <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-3 sm:px-5 w-full">
+  <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-3 sm:px-5 w-full">
           {/* Logo */}
           <Link href="/" className="inline-flex items-center" aria-label="Inicio">
             <Image

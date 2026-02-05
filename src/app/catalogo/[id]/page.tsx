@@ -64,7 +64,7 @@ function ProductDetailInner({ product, gallery }: { product: Product; gallery: s
   const currentSrc = gallery[currentIdx] ?? gallery[0];
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 md:py-12">
+    <div className="mx-auto max-w-5xl px-4 py-10 md:py-12">
       <nav className="mb-6 text-sm text-slate-500">
         <Link href="/" className="hover:underline">Inicio</Link><span className="px-2">/</span>
         <Link href="/catalogo" className="hover:underline">Catálogo</Link><span className="px-2">/</span>

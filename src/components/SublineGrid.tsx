@@ -28,7 +28,7 @@ export default function SublineGrid({ lineSlug, subSlug, title, subtitle }: Prop
   const items: Item[] = dict[key] ?? [];
 
   return (
-  <section className="mx-auto max-w-6xl px-3 sm:px-5 py-10 sm:py-16 w-full">
+  <section className="mx-auto max-w-5xl px-3 sm:px-5 py-10 sm:py-16 w-full">
       <div className="mb-6">
         <h2 className="text-2xl font-semibold text-[#111]">
           {title ?? `Modelos · ${capitalize(subSlug)}`}

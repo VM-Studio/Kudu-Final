@@ -112,7 +112,7 @@ export default function Home() {
         aria-label="Hero"
         className="relative w-full overflow-hidden py-8 md:py-12"
       >
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-6xl px-4">
           <div className="grid grid-cols-1 md:grid-cols-[60%_40%] gap-8 md:gap-12 items-center">
             {/* Mitad izquierda - Contenido centrado */}
             <div className="flex flex-col justify-center space-y-4 md:space-y-6 pr-0 md:pr-8">
@@ -168,7 +168,7 @@ export default function Home() {
       <FeaturedProducts />
 
       {/* ================== DESTACADOS (4 por vista) ================== */}
-      <section className="mx-auto max-w-7xl px-4 md:px-8 pt-16 md:pt-24 pb-12">
+      <section className="mx-auto max-w-6xl px-4 md:px-8 pt-16 md:pt-24 pb-12">
         <SectionTitle label="& Purificadores Destacados" ghost="Destacados" />
         <div className="relative mt-8 md:mt-12">
           <button
