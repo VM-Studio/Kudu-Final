@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     // Enviar email usando Resend
     // Usar la dirección 'from' del dominio verificado. Preferimos tomarla desde
     // la variable de entorno CONTACT_FROM en Vercel (ej: 'KUDUOBRAS - Contacto <contacto@kuduobras.com>')
-    const contactFrom = process.env.CONTACT_FROM || 'KUDUABRAS - Contacto <contacto@kuduobras.com>';
+  const contactFrom = process.env.CONTACT_FROM || 'KUDU — Contacto <contacto@kuduobras.com>';
     const contactTo = process.env.CONTACT_TO ? process.env.CONTACT_TO.split(',').map(s => s.trim()) : ['obras@geneve.com.ar'];
 
     const { error } = await resend.emails.send({
