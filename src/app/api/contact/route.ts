@@ -1,7 +1,16 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Inicializar Resend solo si existe la variable de entorno.
+const resendApiKey = process.env.RESEND_API_KEY;
+let resend: Resend | null = null;
+if (resendApiKey) {
+  resend = new Resend(resendApiKey);
+} else {
+  // Durante builds locales o CI sin la clave, evitamos lanzar una excepción
+  // y manejamos la ruta devolviendo un error controlado en tiempo de petición.
+  console.warn('RESEND_API_KEY no está definida. Emails deshabilitados.');
+}
 
 export async function POST(request: Request) {
   try {
@@ -13,6 +22,15 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: 'Todos los campos son obligatorios' },
         { status: 400 }
+      );
+    }
+
+    // Comprobar que el servicio de emails está disponible
+    if (!resend) {
+      console.error('Intento de enviar email pero RESEND_API_KEY no está configurada.');
+      return NextResponse.json(
+        { error: 'Servicio de email no configurado' },
+        { status: 503 }
       );
     }
 
