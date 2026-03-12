@@ -67,8 +67,11 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error('Error enviando email:', error);
+      // Devolver detalles del error temporalmente para debugging en producción.
+      // Si prefieres no exponer detalles, remové `details` luego de depurar.
+      const details = typeof error === 'string' ? error : error?.message || JSON.stringify(error);
       return NextResponse.json(
-        { error: 'Error al enviar el mensaje' },
+        { error: 'Error al enviar el mensaje', details },
         { status: 500 }
       );
     }
